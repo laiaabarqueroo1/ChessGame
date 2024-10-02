@@ -1,82 +1,62 @@
 import Src.TypePiece;
 
-import javax.sound.sampled.Line;
-import java.lang.reflect.Type;
-
 public class Piece implements TypePiece {
-    private char Pawn = 'P'; // peon
-    private char Bishop = 'B'; //alfil
-    private char Queen = 'Q';
-    private char King = 'K';
-    private char Rook = 'R'; //torre
-    private char Knight = 'K'; //caballos
+    private char Pawn; // peon
+    private char Bishop; //alfil
+    private char Queen;
+    private char King;
+    private char Rook; //torre
+    private char Knight; //caballos
 
-    private char Column;
+    private char Colum;
     private int Line;
     private char Type;
 
     private int Position;
 
-    public Piece(char Type, int Line, char Column) {
+    public Piece(char Type, int Line, char Colum){
         this.Type = Type;
         this.Line = Line;
-        this.Column = Column;
-        checkType(Type);
+        this.Colum = Colum;
     }
 
-    public char getTypes() {
-        return Type;
-    }
-
-
-    public int getRow() {
-        return Line;
-    }
-
-    @Override
-    public int getColumn() {
-        return Column;
-    }
-
-    @Override
-    public void setPosicion(int row, int column) throws RuntimeException {
-
-    }
-
-    @Override
-    public boolean finishGame() {
-        return Type == King;
-    }
-
-    private void checkType(char type) {
+    private void checkType(char Type){
         try {
-            if (type != Pawn && type != Bishop && type != Queen &&
-                    type != King && type != Rook && type != Knight) {
-                throw new IllegalArgumentException("Invalid piece type: " + type);
-            }
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
-            throw e;
+
+        }catch (Exception e){
+
         }
     }
 
+    public String toString(){
 
-    public String toString() {
-        return "Piece{" +
-                "type=" + Type +
-                ", line=" + Line +
-                ", column=" + Column +
-                '}';
     }
-    }
-
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Piece)) return false;
-        Piece piece = (Piece) o;
-        return Type == piece.Type && Line == piece.Line && Column == piece.Column;
+
     }
 
+    @Override
+    public char getTipus() {
+        return 0;
+    }
 
+    @Override
+    public int getFila() {
+        return 0;
+    }
 
+    @Override
+    public int getColumna() {
+        return 0;
+    }
+
+    @Override
+    public void setPosicion(int fila, int columna) throws RuntimeException {
+
+    }
+
+    @Override
+    public boolean fiJoc() {
+        return false;
+    }
 }
