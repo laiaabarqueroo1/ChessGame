@@ -1,57 +1,41 @@
 import Src.TypePiece;
 
-public class Piece implements TypePiece {
-    private char Pawn; // peon
-    private char Bishop; //alfil
-    private char Queen;
-    private char King;
-    private char Rook; //torre
-    private char Knight; //caballos
+import javax.sound.sampled.Line;
+import java.lang.reflect.Type;
 
-    private char Colum;
+public class Piece implements TypePiece {
+    private char Pawn = 'P'; // peon
+    private char Bishop = 'B'; //alfil
+    private char Queen = 'Q';
+    private char King = 'K';
+    private char Rook = 'R'; //torre
+    private char Knight = 'K'; //caballos
+
+    private char Column;
     private int Line;
     private char Type;
 
     private int Position;
 
-    public Piece(char Type, int Line, char Colum) {
+    public Piece(char Type, int Line, char Column) {
         this.Type = Type;
         this.Line = Line;
-        this.Colum = Colum;
+        this.Column = Column;
+        checkType(Type);
     }
 
-    private void checkType(char Type) {
-        try {
-
-        } catch (Exception e) {
-
-        }
-    }
-
-    public String toString() {
-
-        return "";
-    }
-
-    public boolean equals(Object o) {
-
-
-        return false;
-    }
-
-    @Override
     public char getTypes() {
-        return 0;
+        return Type;
     }
 
-    @Override
+
     public int getRow() {
-        return 0;
+        return Line;
     }
 
     @Override
     public int getColumn() {
-        return 0;
+        return Column;
     }
 
     @Override
@@ -61,6 +45,38 @@ public class Piece implements TypePiece {
 
     @Override
     public boolean finishGame() {
-        return false;
+        return Type == King;
     }
+
+    private void checkType(char type) {
+        try {
+            if (type != Pawn && type != Bishop && type != Queen &&
+                    type != King && type != Rook && type != Knight) {
+                throw new IllegalArgumentException("Invalid piece type: " + type);
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            throw e;
+        }
+    }
+
+
+    public String toString() {
+        return "Piece{" +
+                "type=" + Type +
+                ", line=" + Line +
+                ", column=" + Column +
+                '}';
+    }
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Piece)) return false;
+        Piece piece = (Piece) o;
+        return Type == piece.Type && Line == piece.Line && Column == piece.Column;
+    }
+
+
+
 }
