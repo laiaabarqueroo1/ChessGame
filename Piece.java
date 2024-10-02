@@ -42,7 +42,5 @@ public class Piece {
     public void checkType(char Type){
 
     }
-    public String
-
 
 }
