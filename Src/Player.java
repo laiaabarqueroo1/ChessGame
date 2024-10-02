@@ -11,7 +11,7 @@ public class Player <E extends TypePiece> {
     // Constructor to initialize the player with a set of alive pieces
     public Player(String name, List<E> initialPieces) {
         this.name = name;
-        this.alivePieces = new ArrayList<>(initialPieces);
+        this.alivePieces = new ArrayList<E>(initialPieces);
         this.deadPieces = new ArrayList<>();
     }
 
