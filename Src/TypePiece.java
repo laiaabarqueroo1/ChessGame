@@ -1,3 +1,5 @@
+package Src;
+
 public interface TypePiece {
     // mètodes abstractes: aquí detallem les capçaleres,
 // les classes que implementen la interfície, hauran d'implementar aquests mètodes

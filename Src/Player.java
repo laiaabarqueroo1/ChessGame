@@ -1,3 +1,5 @@
+package Src;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ public class Player <E extends TypePiece> {
     private List<E> deadPieces;
 
     // Constructor to initialize the player with a set of alive pieces
-    public Player(String name, List<Piece> initialPieces) {
+    public Player(String name, List<E> initialPieces) {
         this.name = name;
         this.alivePieces = new ArrayList<>(initialPieces);
         this.deadPieces = new ArrayList<>();
@@ -17,7 +19,7 @@ public class Player <E extends TypePiece> {
         return alivePieces;
     }
 
-    public List<Piece> getDeadPieces() {
+    public List<E> getDeadPieces() {
         return deadPieces;
     }
 
@@ -26,7 +28,7 @@ public class Player <E extends TypePiece> {
     }
 
     // Move a piece from one position to another
-    public void movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
+    public  boolean movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
         E piece = searchAtPosition(previousRow, previousColumn);
         if (piece != null) {
             try {
@@ -52,6 +54,7 @@ public class Player <E extends TypePiece> {
 
     // Remove a piece from a specific position
     public boolean removePieceAtPosition(int column, int row) {
+        E piece = searchAtPosition(row, column);
         if (piece != null) {
             alivePieces.remove(piece);
             deadPieces.add(piece);
