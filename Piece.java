@@ -35,4 +35,14 @@ public class Piece {
         this.Colum = Colum;
     }
 
+    public boolean EndGame(){
+
+        return false;
+    }
+    public void checkType(char Type){
+
+    }
+
+
+
 }
