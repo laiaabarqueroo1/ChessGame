@@ -6,33 +6,33 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
-    private static char[][] tauler;
+    private static char[][] board;
 
     public static void main(String[] args) {
-        mostrarMenu();
+        showMenu();
     }
 
-    // Mostra el menú principal
-    public static void mostrarMenu() {
+    // Displays the main menu
+    public static void showMenu() {
         Scanner scanner = new Scanner(System.in);
-        int opcio = 0;
+        int option = 0;
 
-        while (opcio != 3) {
+        while (option != 3) {
             System.out.println("Main menu:");
             System.out.println("1. Start new game");
             System.out.println("2. Replay game from a file");
             System.out.println("3. Exit");
             System.out.print("Choose an option: ");
 
-            opcio = scanner.nextInt();
-            scanner.nextLine(); // Neteja el buffer
+            option = scanner.nextInt();
+            scanner.nextLine(); // Clear the buffer
 
-            switch (opcio) {
+            switch (option) {
                 case 1:
-                    jugarNovaPartida();
+                    playNewGame();
                     break;
                 case 2:
-                    reproduirPartida();
+                    replayGame();
                     break;
                 case 3:
                     System.out.println("Exiting the program.");
@@ -43,52 +43,52 @@ public class Main {
         }
     }
 
-    // Inicia una nova partida d'escacs
-    public static void jugarNovaPartida() {
-        Turns<String> torns = new Turns<>();
-        inicialitzarTauler();
+    // Starts a new chess game
+    public static void playNewGame() {
+        Turns<String> turns = new Turns<>();
+        initializeBoard();
         Scanner scanner = new Scanner(System.in);
-        boolean jocAcabat = false;
+        boolean gameEnded = false;
 
-        while (!jocAcabat) {
-            mostrarTauler();
-            String torn = scanner.nextLine();
-            torns.afegirTorn(torn);
+        while (!gameEnded) {
+            showBoard();
+            String turn = scanner.nextLine();
+            turns.addTurn(turn);
 
-            // Converteix el torn en coordenades i mou les peces
-            if (tornToPosition(torn)) {
-                mostrarTauler(); // Mostra el tauler després del moviment
+            // Convert the turn to coordinates and move the pieces
+            if (turnToPosition(turn)) {
+                showBoard(); // Show the board after the move
             } else {
                 System.out.println("Invalid move. Please try again.");
             }
 
-            // Aquí es podria afegir la lògica per comprovar si el joc ha acabat.
+            // Logic could be added here to check if the game has ended.
             System.out.print("Has the game ended? (yes/no): ");
-            jocAcabat = scanner.nextLine().equalsIgnoreCase("si");
+            gameEnded = scanner.nextLine().equalsIgnoreCase("yes");
         }
 
-        // Guardar la partida en un fitxer al final
+        // Save the game to a file at the end
         System.out.print("Enter the filename to save the game: ");
-        String nomFitxer = scanner.nextLine();
+        String filename = scanner.nextLine();
         try {
-            torns.guardarAFitxer(nomFitxer);
+            turns.saveToFile(filename);
             System.out.println("Game saved successfully.");
         } catch (IOException e) {
             System.out.println("Error saving the game: " + e.getMessage());
         }
     }
 
-    // Reprodueix una partida des d'un fitxer
-    public static void reproduirPartida() {
+    // Replays a game from a file
+    public static void replayGame() {
         try {
-            Turns<String> torns = llegirTorns();
-            inicialitzarTauler();
-            while (torns.obtenirNumTorns() > 0) {
-                mostrarTauler();
-                String torn = torns.agafarPrimerTorn();
-                System.out.println("Playing move: " + torn);
-                tornToPosition(torn);
-                mostrarTauler();
+            Turns<String> turns = readTurns();
+            initializeBoard();
+            while (turns.getNumberOfTurns() > 0) {
+                showBoard();
+                String turn = turns.takeFirstTurn();
+                System.out.println("Playing move: " + turn);
+                turnToPosition(turn);
+                showBoard();
             }
         } catch (IOException e) {
             System.out.println("Error loading the game: " + e.getMessage());
@@ -97,83 +97,83 @@ public class Main {
         }
     }
 
-    // Llegeix el fitxer de torns i retorna la llista de torns
-    public static Turns<String> llegirTorns() throws IOException {
+    // Reads the file of turns and returns the list of turns
+    public static Turns<String> readTurns() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the filename to load the game: ");
-        String nomFitxer = scanner.nextLine();
+        String filename = scanner.nextLine();
         try {
-            return new Turns<>(nomFitxer);
+            return new Turns<>(filename);
         } catch (IOException e) {
             System.out.println("Error reading the file: " + e.getMessage());
-            return llegirTorns(); // Crida recursiva en cas d'error
+            return readTurns(); // Recursive call in case of an error
         }
     }
 
-    // Converteix un torn (per exemple, "E2 E4") en coordenades i mou les peces
-    public static boolean tornToPosition(String torn) {
-        // Exemple bàsic de conversió de torn en coordenades
-        String[] parts = torn.split(" ");
+    // Converts a turn (for example, "E2 E4") into coordinates and moves the pieces
+    public static boolean turnToPosition(String turn) {
+        // Basic example of converting a turn into coordinates
+        String[] parts = turn.split(" ");
         if (parts.length != 2) return false;
 
-        int[] origen = convertirPosicio(parts[0]);
-        int[] desti = convertirPosicio(parts[1]);
+        int[] source = convertPosition(parts[0]);
+        int[] destination = convertPosition(parts[1]);
 
-        if (origen == null || desti == null) return false;
+        if (source == null || destination == null) return false;
 
-        // Mou la peça de l'origen al destí si és un moviment vàlid
-        tauler[desti[0]][desti[1]] = tauler[origen[0]][origen[1]];
-        tauler[origen[0]][origen[1]] = ' ';
+        // Move the piece from source to destination if it's a valid move
+        board[destination[0]][destination[1]] = board[source[0]][source[1]];
+        board[source[0]][source[1]] = ' ';
         return true;
     }
 
-    // Converteix una posició com "E2" en coordenades del tauler
-    public static int[] convertirPosicio(String posicio) {
-        if (posicio.length() != 2) return null;
+    // Converts a position like "E2" into board coordinates
+    public static int[] convertPosition(String position) {
+        if (position.length() != 2) return null;
 
-        char columna = posicio.charAt(0);
-        char fila = posicio.charAt(1);
+        char column = position.charAt(0);
+        char row = position.charAt(1);
 
-        int x = 8 - Character.getNumericValue(fila); // La fila és inversa
-        int y = columna - 'A';
+        int x = 8 - Character.getNumericValue(row); // The row is inverted
+        int y = column - 'A';
 
         if (x < 0 || x >= 8 || y < 0 || y >= 8) return null;
 
-        return new int[] {x, y};
+        return new int[]{x, y};
     }
 
-    // Mostra el tauler actual d'escacs
-    public static void mostrarTauler() {
+    // Displays the current chess board
+    public static void showBoard() {
         System.out.println("  A B C D E F G H");
         for (int i = 0; i < 8; i++) {
             System.out.print(8 - i + " ");
             for (int j = 0; j < 8; j++) {
-                System.out.print(tauler[i][j] + " ");
+                System.out.print(board[i][j] + " ");
             }
             System.out.println(8 - i);
         }
         System.out.println("  A B C D E F G H");
     }
 
-    // Inicialitza el tauler d'escacs amb les peces blanques i negres
-    public static void inicialitzarTauler() {
-        tauler = new char[8][8];
-        iniciarJocBlanques();
-        iniciarJocNegres();
+    // Initializes the chess board with white and black pieces
+    public static void initializeBoard() {
+        board = new char[8][8];
+        initializeWhitePieces();
+        initializeBlackPieces();
         for (int i = 2; i < 6; i++) {
-            Arrays.fill(tauler[i], ' '); // Caselles buides
+            Arrays.fill(board[i], ' '); // Empty squares
         }
     }
 
-    // Inicialitza les peces blanques en el tauler
-    public static void iniciarJocBlanques() {
-        tauler[6] = new char[] {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'}; // Peons
-        tauler[7] = new char[] {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}; // Peces principals
+    // Initializes the white pieces on the board
+    public static void initializeWhitePieces() {
+        board[6] = new char[]{'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'}; // Pawns
+        board[7] = new char[]{'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}; // Major pieces
     }
 
-    // Inicialitza les peces negres en el tauler
-    public static void iniciarJocNegres() {
-        tauler[1] = new char[] {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'}; // Peons
-        tauler[0] = new char[] {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}; // Peces principals
+    // Initializes the black pieces on the board
+    public static void initializeBlackPieces() {
+        board[1] = new char[]{'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'}; // Pawns
+        board[0] = new char[]{'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}; // Major pieces
     }
 }
