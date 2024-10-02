@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="" />
+    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Piece.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,6 +58,15 @@
       <updated>1727854848896</updated>
       <workItem from="1727854849934" duration="11900000" />
     </task>
+    <task id="LOCAL-00001" summary="update turns">
+      <option name="closed" value="true" />
+      <created>1727892279866</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1727892279866</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -62,5 +74,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="update turns" />
+    <option name="LAST_COMMIT_MESSAGE" value="update turns" />
   </component>
 </project>
