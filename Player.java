@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player <E extends TypePiece> {
     private String name;
-    private List<Piece> alivePieces;
-    private List<Piece> deadPieces;
+    private ArrayList<E> alivePieces;
+    private List<E> deadPieces;
 
     // Constructor to initialize the player with a set of alive pieces
     public Player(String name, List<Piece> initialPieces) {
@@ -13,7 +13,7 @@ public class Player {
         this.deadPieces = new ArrayList<>();
     }
 
-    public List<Piece> getAlivePieces() {
+    public ArrayList<E> getAlivePieces() {
         return alivePieces;
     }
 
