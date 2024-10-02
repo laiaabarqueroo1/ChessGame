@@ -1,3 +1,5 @@
+import Src.TypePiece;
+
 public class Piece implements TypePiece {
     private char Pawn; // peon
     private char Bishop; //alfil
