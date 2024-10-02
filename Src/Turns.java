@@ -1,7 +1,6 @@
-import java.io.*;
+package Src;
+
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Turns<E> {
     private ArrayList<E> llistatTorns;
