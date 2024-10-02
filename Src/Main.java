@@ -18,11 +18,12 @@ public class Main {
         int opcio = 0;
 
         while (opcio != 3) {
-            System.out.println("Menú principal:");
-            System.out.println("1. Jugar nova partida");
-            System.out.println("2. Reproduir partida des d'un fitxer");
-            System.out.println("3. Sortir");
-            System.out.print("Selecciona una opció: ");
+            System.out.println("Main menu:");
+            System.out.println("1. Start new game");
+            System.out.println("2. Replay game from a file");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+
             opcio = scanner.nextInt();
             scanner.nextLine(); // Neteja el buffer
 
@@ -34,10 +35,10 @@ public class Main {
                     reproduirPartida();
                     break;
                 case 3:
-                    System.out.println("Sortint del programa.");
+                    System.out.println("Exiting the program.");
                     break;
                 default:
-                    System.out.println("Opció no vàlida, torna a intentar-ho.");
+                    System.out.println("Invalid option, please try again.");
             }
         }
     }
@@ -51,7 +52,6 @@ public class Main {
 
         while (!jocAcabat) {
             mostrarTauler();
-            System.out.print("Introdueix el torn (per exemple, E2 E4): ");
             String torn = scanner.nextLine();
             torns.afegirTorn(torn);
 
@@ -59,22 +59,22 @@ public class Main {
             if (tornToPosition(torn)) {
                 mostrarTauler(); // Mostra el tauler després del moviment
             } else {
-                System.out.println("Torn invàlid. Torna a intentar-ho.");
+                System.out.println("Invalid move. Please try again.");
             }
 
             // Aquí es podria afegir la lògica per comprovar si el joc ha acabat.
-            System.out.print("El joc ha acabat? (si/no): ");
+            System.out.print("Has the game ended? (yes/no): ");
             jocAcabat = scanner.nextLine().equalsIgnoreCase("si");
         }
 
         // Guardar la partida en un fitxer al final
-        System.out.print("Introdueix el nom del fitxer per guardar la partida: ");
+        System.out.print("Enter the filename to save the game: ");
         String nomFitxer = scanner.nextLine();
         try {
             torns.guardarAFitxer(nomFitxer);
-            System.out.println("Partida guardada correctament.");
+            System.out.println("Game saved successfully.");
         } catch (IOException e) {
-            System.out.println("Error en guardar la partida: " + e.getMessage());
+            System.out.println("Error saving the game: " + e.getMessage());
         }
     }
 
@@ -86,12 +86,12 @@ public class Main {
             while (torns.obtenirNumTorns() > 0) {
                 mostrarTauler();
                 String torn = torns.agafarPrimerTorn();
-                System.out.println("Reproduint torn: " + torn);
+                System.out.println("Playing move: " + torn);
                 tornToPosition(torn);
                 mostrarTauler();
             }
         } catch (IOException e) {
-            System.out.println("Error en carregar la partida: " + e.getMessage());
+            System.out.println("Error loading the game: " + e.getMessage());
         } catch (NoSuchElementException e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -100,12 +100,12 @@ public class Main {
     // Llegeix el fitxer de torns i retorna la llista de torns
     public static Turns<String> llegirTorns() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Introdueix el nom del fitxer per carregar la partida: ");
+        System.out.print("Enter the filename to load the game: ");
         String nomFitxer = scanner.nextLine();
         try {
             return new Turns<>(nomFitxer);
         } catch (IOException e) {
-            System.out.println("Error en llegir el fitxer: " + e.getMessage());
+            System.out.println("Error reading the file: " + e.getMessage());
             return llegirTorns(); // Crida recursiva en cas d'error
         }
     }
