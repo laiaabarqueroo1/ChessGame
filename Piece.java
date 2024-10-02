@@ -1,4 +1,4 @@
-public class Piece {
+public class Piece implements TypePiece {
     private char Pawn; // peon
     private char Bishop; //alfil
     private char Queen;
@@ -18,29 +18,43 @@ public class Piece {
         this.Colum = Colum;
     }
 
-    public char getColum() {
-        return Colum;
+    private void checkType(char Type){
+        try {
+
+        }catch (Exception e){
+
+        }
     }
 
-    public int getLine() {
-        return Line;
+    public String toString(){
+
+    }
+    public boolean equals(Object o) {
+
     }
 
-    public char getType() {
-        return Type;
+    @Override
+    public char getTipus() {
+        return 0;
     }
 
-    public void setPosition(int Line, char Colum){
-        this.Line = Line;
-        this.Colum = Colum;
+    @Override
+    public int getFila() {
+        return 0;
     }
 
-    public boolean EndGame(){
+    @Override
+    public int getColumna() {
+        return 0;
+    }
 
+    @Override
+    public void setPosicion(int fila, int columna) throws RuntimeException {
+
+    }
+
+    @Override
+    public boolean fiJoc() {
         return false;
     }
-    public void checkType(char Type){
-
-    }
-
 }
