@@ -1,4 +1,4 @@
-public class Turns <E> {public class Torns <E> {
+public classTurns <E> {public class Torns <E> {
         private ArrayList<E> llistatTorns;
 
 }
