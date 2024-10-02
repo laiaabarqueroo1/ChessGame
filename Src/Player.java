@@ -28,7 +28,7 @@ public class Player <E extends TypePiece> {
     }
 
     // Move a piece from one position to another
-    public  boolean movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
+    public  void movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
         E piece = searchAtPosition(previousRow, previousColumn);
         if (piece != null) {
             try {
@@ -40,6 +40,7 @@ public class Player <E extends TypePiece> {
         } else {
             System.out.println("No piece found at (" + previousColumn + ", " + previousRow + ")");
         }
+         
     }
 
     // Search for a piece at a given position
