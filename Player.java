@@ -24,4 +24,19 @@ public class Player <E extends TypePiece> {
     public String getName() {
         return name;
     }
+
+    / Move a piece from one position to another
+    public void movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
+
+    }
+
+    // Search for a piece at a given position
+    public E searchAtPosition(int row, int column) {
+
+    }
+
+    // Remove a piece from a specific position
+    public boolean removePieceAtPosition(int column, int row) {
+
+    }
 }
