@@ -1,3 +1,5 @@
+import Src.TypePiece;
+
 public class Piece implements TypePiece {
     private char Pawn; // peon
     private char Bishop; //alfil
@@ -12,49 +14,53 @@ public class Piece implements TypePiece {
 
     private int Position;
 
-    public Piece(char Type, int Line, char Colum){
+    public Piece(char Type, int Line, char Colum) {
         this.Type = Type;
         this.Line = Line;
         this.Colum = Colum;
     }
 
-    private void checkType(char Type){
+    private void checkType(char Type) {
         try {
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    public String toString(){
+    public String toString() {
 
+        return "";
     }
+
     public boolean equals(Object o) {
 
+
+        return false;
     }
 
     @Override
-    public char getTipus() {
+    public char getTypes() {
         return 0;
     }
 
     @Override
-    public int getFila() {
+    public int getRow() {
         return 0;
     }
 
     @Override
-    public int getColumna() {
+    public int getColumn() {
         return 0;
     }
 
     @Override
-    public void setPosicion(int fila, int columna) throws RuntimeException {
+    public void setPosicion(int row, int column) throws RuntimeException {
 
     }
 
     @Override
-    public boolean fiJoc() {
+    public boolean finishGame() {
         return false;
     }
 }
