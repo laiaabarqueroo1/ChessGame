@@ -103,6 +103,7 @@ public class Main {
         System.out.print("Enter the filename to load the game: ");
         String filename = scanner.nextLine();
         try {
+            System.out.println(" ");
             return new Turns<>(filename);
         } catch (IOException e) {
             System.out.println("Error reading the file: " + e.getMessage());
