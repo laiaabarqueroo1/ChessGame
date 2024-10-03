@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns">
+    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update main">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Piece.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +65,23 @@
       <option name="project" value="LOCAL" />
       <updated>1727892279866</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update main">
+      <option name="closed" value="true" />
+      <created>1727894874018</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727894874018</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update main">
+      <option name="closed" value="true" />
+      <created>1727895090358</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1727895090358</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -75,6 +90,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="update turns" />
-    <option name="LAST_COMMIT_MESSAGE" value="update turns" />
+    <MESSAGE value="update main" />
+    <option name="LAST_COMMIT_MESSAGE" value="update main" />
   </component>
 </project>
