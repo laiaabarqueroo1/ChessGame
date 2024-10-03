@@ -8,5 +8,5 @@ public interface TypePiece {
     public abstract int getColumn();
     public abstract void setPosicion(int row, int column) throws RuntimeException;
     // si la posició no és correcte cal llançar una excepció
-    public abstract boolean fiJoc() ;
+    public abstract boolean finishGame() ;
 }

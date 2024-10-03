@@ -28,7 +28,7 @@ public class Player <E extends TypePiece> {
     }
 
     // Move a piece from one position to another
-    public  boolean movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
+    public  void movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
         E piece = searchAtPosition(previousRow, previousColumn);
         if (piece != null) {
             try {
@@ -40,6 +40,7 @@ public class Player <E extends TypePiece> {
         } else {
             System.out.println("No piece found at (" + previousColumn + ", " + previousRow + ")");
         }
+
     }
 
     // Search for a piece at a given position
@@ -53,9 +54,14 @@ public class Player <E extends TypePiece> {
     }
 
     // Remove a piece from a specific position
-    public boolean removePieceAtPosition(int column, int row) {
+    public boolean removePieceAtPosition(int column, int row) throws FinishGameExcepcion {
         E piece = searchAtPosition(row, column);
         if (piece != null) {
+            // Check if the piece is the king and call finishGame
+            if (piece.finishGame()) { // Using the finishGame method to check
+                throw new FinishGameExcepcion(); // Throw the exception if the king is captured
+            }
+
             alivePieces.remove(piece);
             deadPieces.add(piece);
             System.out.println("Removed piece from (" + column + ", " + row + ")");
