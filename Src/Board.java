@@ -14,6 +14,16 @@ public class Board {
         return board;
     }
 
+    // Getters for the pieces
+    public static ArrayList<Piece> getWhitePieces() {
+        return whitePieces;
+    }
+
+    public static ArrayList<Piece> getBlackPieces() {
+        return blackPieces;
+    }
+
+
     // Initializes the chess board with white and black pieces
         public static void initializeBoard() {
             board = new char[8][8];

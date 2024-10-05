@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns">
-      <change afterPath="$PROJECT_DIR$/A" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/J" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Turns.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Turns.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/S" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Turns.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Turns.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/PieceInitializer.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,17 +130,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Src/Main.java</url>
-          <line>122</line>
+          <line>132</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Src/Main.java</url>
-          <line>121</line>
+          <line>131</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Src/Main.java</url>
-          <line>133</line>
+          <line>143</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>

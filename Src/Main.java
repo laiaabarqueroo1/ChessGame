@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Src.PieceInitializer.initializeBlackPieces;
+
 
 public class Main {
 
@@ -45,43 +45,51 @@ public class Main {
 
     // Starts a new chess game
     public static void playNewGame() {
-        Turns<String> turns = new Turns<>(); // Usar el constructor por defecto
-        Board.initializeBoard();
-        Scanner scanner = new Scanner(System.in);
-        boolean gameEnded = false;
+        Turns<String> turns = new Turns<>(); // Use the default constructor for turns
+        Board.initializeBoard(); // Initialize the chess board
 
+        // Initialize players
+        Scanner scanner = new Scanner(System.in);
+
+        // Input for the white player
         System.out.print("Enter the name of the White player: ");
         String whitePlayerName = scanner.nextLine();
-        ArrayList<TypePiece> whitePieces = PieceInitializer.initializeWhitePieces();
-        Player<TypePiece> whitePlayer = new Player<>(whitePlayerName, whitePieces);
 
+        // Fetching initialized white pieces
+        ArrayList<Piece> whitePieces = Board.getWhitePieces(); // Get white pieces from the board
+        // Ensure Player is compatible with the type of pieces you're using
+        Player<Piece> whitePlayer = new Player<>(whitePlayerName, whitePieces); // Correcting Type
+
+        // Input for the black player
         System.out.print("Enter the name of the Black player: ");
         String blackPlayerName = scanner.nextLine();
-        ArrayList<TypePiece> blackPieces = initializeBlackPieces();
-        Player<TypePiece> blackPlayer = new Player<>(blackPlayerName, blackPieces);
+
+        // Fetching initialized black pieces
+        ArrayList<Piece> blackPieces = Board.getBlackPieces(); // Get black pieces from the board
+        // Ensure Player is compatible with the type of pieces you're using
+        Player<Piece> blackPlayer = new Player<>(blackPlayerName, blackPieces); // Correcting Type
+
+        boolean gameEnded = false;
 
         while (!gameEnded) {
-            Board.showBoard();
+            Board.showBoard(); // Display the board
             System.out.print("Enter your move (EXAMPLE: E2 E4....): ");
             String turn = scanner.nextLine();
 
             // Convert the turn to coordinates and move the pieces
             if (turnToPosition(turn, whitePlayer, blackPlayer)) {
-                turns.addTurn(turn);
+                turns.addTurn(turn); // Record the turn
                 Board.showBoard(); // Show the board after the move
-                whitePlayer.printAlivePiecesCount();
-                blackPlayer.printAlivePiecesCount();
-                whitePlayer.printDeadPiecesCount();
-                blackPlayer.printDeadPiecesCount();
+                whitePlayer.printAlivePiecesCount(); // Show alive pieces count for white
+                blackPlayer.printAlivePiecesCount(); // Show alive pieces count for black
 
+                // Check for the status of the kings
                 try {
-                    checkKingsAlive(); // Se lanza la excepción si se captura el rey
+                    checkKingsAlive(); // Check if both kings are alive
                 } catch (FinishGameExcepcion e) {
-                    System.out.println(e.getMessage()); // Mostramos el mensaje de finalización
-                    gameEnded = true; // Terminamos el bucle del juego
-                    break; // Salimos del bucle para finalizar el juego
+                    System.out.println(e.getMessage()); // Display finish message
+                    gameEnded = true; // End the game
                 }
-
             } else {
                 System.out.println("Invalid move. Please try again.");
             }
@@ -91,12 +99,14 @@ public class Main {
         System.out.print("Enter the filename to save the game: ");
         String filename = scanner.nextLine();
         try {
-            turns.saveToFile(filename);
+            turns.saveToFile(filename); // Save the turns to a file
             System.out.println("Game saved successfully.");
         } catch (IOException e) {
             System.out.println("Error saving the game: " + e.getMessage());
         }
     }
+
+
 
     // Replays a game from a file
     public static void replayGame() {
@@ -111,14 +121,14 @@ public class Main {
             Board.showBoard();
             String turn = turns.takeFirstTurn();
             System.out.println("Playing move: " + turn);
-            if (turnToPosition(turn, new Player<TypePiece>("", new ArrayList<>()), new Player<TypePiece>("", new ArrayList<>()))) {
+            if (turnToPosition(turn, new Player<Piece>("", new ArrayList<>()), new Player<Piece>("", new ArrayList<>()))) {
                 Board.showBoard();
             }
         }
     }
 
     // Converts a turn (for example, "E2 E4") into coordinates and moves the pieces
-    public static boolean turnToPosition(String turn, Player<TypePiece> currentPlayer, Player<TypePiece> opponentPlayer) {
+    public static boolean turnToPosition(String turn, Player<Piece> currentPlayer, Player<Piece> opponentPlayer) {
         // Basic example of converting a turn into coordinates
         String[] parts = turn.split(" ");
         if (parts.length != 2) return false;
