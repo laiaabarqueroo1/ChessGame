@@ -52,12 +52,23 @@ public class Main {
 
         while (!gameEnded) {
             showBoard();
+            System.out.print("Enter your move (EXAMPLE: E2 E4....): ");
             String turn = scanner.nextLine();
-            turns.addTurn(turn);
+
 
             // Convert the turn to coordinates and move the pieces
             if (turnToPosition(turn)) {
+                turns.addTurn(turn);
                 showBoard(); // Show the board after the move
+
+                try {
+                    checkKingsAlive(); // Se lanza la excepción si se captura el rey
+                } catch (FinishGameExcepcion e) {
+                    System.out.println(e.getMessage()); // Mostramos el mensaje de finalización
+                    gameEnded = true; // Terminamos el bucle del juego
+                    break; // Salimos del bucle para finalizar el juego
+                }
+
             } else {
                 System.out.println("Invalid move. Please try again.");
             }
@@ -111,6 +122,7 @@ public class Main {
         }
     }
 
+
     // Converts a turn (for example, "E2 E4") into coordinates and moves the pieces
     public static boolean turnToPosition(String turn) {
         // Basic example of converting a turn into coordinates
@@ -163,6 +175,27 @@ public class Main {
         initializeBlackPieces();
         for (int i = 2; i < 6; i++) {
             Arrays.fill(board[i], ' '); // Empty squares
+        }
+    }
+
+
+    public static void checkKingsAlive() throws FinishGameExcepcion {
+        boolean whiteKingAlive = false;
+        boolean blackKingAlive = false;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] == 'K') {
+                    whiteKingAlive = true;
+                }
+                if (board[i][j] == 'k') {
+                    blackKingAlive = true;
+                }
+            }
+        }
+
+        if (!whiteKingAlive || !blackKingAlive) {
+            throw new FinishGameExcepcion();
         }
     }
 
