@@ -6,12 +6,12 @@ import javax.sound.sampled.Line;
 import java.lang.reflect.Type;
 
 public class Piece implements TypePiece {
-    private char Pawn = 'P'; // peon
-    private char Bishop = 'B'; //alfil
-    private char Queen = 'Q';
-    private char King = 'K';
-    private char Rook = 'R'; //torre
-    private char Knight = 'K'; //caballos
+    protected  static char Pawn = 'P'; // peon
+    protected  static char Bishop = 'B'; //alfil
+    protected static  char Queen = 'Q';
+    protected static  char King = 'K';
+    protected static  char Rook = 'R'; //torre
+    protected static  char Knight = 'N'; //caballos
 
     private char Column;
     private int Line;
@@ -45,6 +45,7 @@ public class Piece implements TypePiece {
         this.Line = row;
         this.Column = (char) column;
     }
+
 
     @Override
     public boolean finishGame() {
@@ -80,7 +81,7 @@ public class Piece implements TypePiece {
 
         Piece piece = (Piece) obj;
 
-        // Comparar el atributo de objeto usando .equals()
+
         return this.Type == piece.Type &&
                 this.Line == piece.Line &&
                 this.Column == piece.Column;

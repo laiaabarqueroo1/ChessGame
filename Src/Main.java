@@ -1,12 +1,13 @@
 package Src;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
+
+import static Src.PieceInitializer.initializeBlackPieces;
 
 public class Main {
-    private static char[][] board;
+
+
 
     public static void main(String[] args) {
         showMenu();
@@ -46,12 +47,24 @@ public class Main {
     // Starts a new chess game
     public static void playNewGame() {
         Turns<String> turns = new Turns<>();
-        initializeBoard();
+        Board.initializeBoard();
         Scanner scanner = new Scanner(System.in);
         boolean gameEnded = false;
 
+        System.out.print("Enter the name of the White player: ");
+        String whitePlayerName = scanner.nextLine();
+        ArrayList<TypePiece> whitePieces = PieceInitializer.initializeWhitePieces();
+        Player<TypePiece> whitePlayer = new Player<>(whitePlayerName, whitePieces);
+
+        System.out.print("Enter the name of the Black player: ");
+        String blackPlayerName = scanner.nextLine();
+        ArrayList<TypePiece> blackPieces = initializeBlackPieces();
+        Player<TypePiece> blackPlayer = new Player<>(blackPlayerName, blackPieces);
+
+
+
         while (!gameEnded) {
-            showBoard();
+            Board.showBoard();
             System.out.print("Enter your move (EXAMPLE: E2 E4....): ");
             String turn = scanner.nextLine();
 
@@ -59,7 +72,13 @@ public class Main {
             // Convert the turn to coordinates and move the pieces
             if (turnToPosition(turn)) {
                 turns.addTurn(turn);
-                showBoard(); // Show the board after the move
+                Board.showBoard(); // Show the board after the move
+
+
+                whitePlayer.printAlivePiecesCount();
+                blackPlayer.printAlivePiecesCount();
+                whitePlayer.printDeadPiecesCount();
+                blackPlayer.printDeadPiecesCount();
 
                 try {
                     checkKingsAlive(); // Se lanza la excepción si se captura el rey
@@ -72,10 +91,6 @@ public class Main {
             } else {
                 System.out.println("Invalid move. Please try again.");
             }
-
-            // Logic could be added here to check if the game has ended.
-            System.out.print("Has the game ended? (yes/no): ");
-            gameEnded = scanner.nextLine().equalsIgnoreCase("yes");
         }
 
         // Save the game to a file at the end
@@ -93,13 +108,13 @@ public class Main {
     public static void replayGame() {
         try {
             Turns<String> turns = readTurns();
-            initializeBoard();
+            Board.initializeBoard();
             while (turns.getNumberOfTurns() > 0) {
-                showBoard();
+                Board.showBoard();
                 String turn = turns.takeFirstTurn();
                 System.out.println("Playing move: " + turn);
                 turnToPosition(turn);
-                showBoard();
+                Board.showBoard();
             }
         } catch (IOException e) {
             System.out.println("Error loading the game: " + e.getMessage());
@@ -135,8 +150,8 @@ public class Main {
         if (source == null || destination == null) return false;
 
         // Move the piece from source to destination if it's a valid move
-        board[destination[0]][destination[1]] = board[source[0]][source[1]];
-        board[source[0]][source[1]] = ' ';
+        Board.getBoard()[destination[0]][destination[1]] = Board.getBoard()[source[0]][source[1]];
+        Board.getBoard()[source[0]][source[1]] = ' ';
         return true;
     }
 
@@ -155,6 +170,7 @@ public class Main {
         return new int[]{x, y};
     }
 
+    /*
     // Displays the current chess board
     public static void showBoard() {
         System.out.println("  A B C D E F G H");
@@ -167,7 +183,8 @@ public class Main {
         }
         System.out.println("  A B C D E F G H");
     }
-
+*/
+    /*
     // Initializes the chess board with white and black pieces
     public static void initializeBoard() {
         board = new char[8][8];
@@ -178,6 +195,9 @@ public class Main {
         }
     }
 
+    private static void initializeWhitePieces() {
+    }
+*/
 
     public static void checkKingsAlive() throws FinishGameExcepcion {
         boolean whiteKingAlive = false;
@@ -185,10 +205,10 @@ public class Main {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (board[i][j] == 'K') {
+                if (Board.getBoard()[i][j] == 'K') {
                     whiteKingAlive = true;
                 }
-                if (board[i][j] == 'k') {
+                if (Board.getBoard()[i][j] == 'k') {
                     blackKingAlive = true;
                 }
             }
@@ -199,6 +219,7 @@ public class Main {
         }
     }
 
+    /*
     // Initializes the white pieces on the board
     public static void initializeWhitePieces() {
         board[6] = new char[]{'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'}; // Pawns
@@ -209,5 +230,8 @@ public class Main {
     public static void initializeBlackPieces() {
         board[1] = new char[]{'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'}; // Pawns
         board[0] = new char[]{'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}; // Major pieces
+
     }
+
+     */
 }

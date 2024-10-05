@@ -5,19 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns">
-      <change afterPath="$PROJECT_DIR$/DD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Src/Board.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Src/MovablePiece.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Src/PieceInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Piece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Player.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -32,6 +49,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Board.executor": "Run",
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "Laia",
@@ -44,7 +62,20 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Board" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Src.Board" />
+      <module name="ChessGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Src.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Src.Main" />
       <module name="ChessGame" />
@@ -61,6 +92,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Board" />
       </list>
     </recent_temporary>
   </component>
@@ -100,5 +132,31 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="update turns" />
     <option name="LAST_COMMIT_MESSAGE" value="update turns" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Src/Main.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Src/Main.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Src/Board.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Src/Board.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

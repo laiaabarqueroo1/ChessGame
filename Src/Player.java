@@ -3,6 +3,8 @@ package Src;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class Player <E extends TypePiece> {
     private String name;
     private ArrayList<E> alivePieces;
@@ -30,12 +32,18 @@ public class Player <E extends TypePiece> {
     // Move a piece from one position to another
     public  void movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
         E piece = searchAtPosition(previousRow, previousColumn);
+
         if (piece != null) {
-            try {
-                piece.setPosicion(newRow, newColumn);
-                System.out.println("Moved piece to (" + newColumn + ", " + newRow + ")");
-            } catch (RuntimeException e) {
-                System.out.println("Invalid position: " + e.getMessage());
+            MovablePiece movablePiece = (MovablePiece) piece;
+            if (movablePiece.isMoveValid(newRow, (char) newColumn)) {
+                try {
+                    piece.setPosicion(newRow, newColumn);
+                    System.out.println("Moved piece to (" + newColumn + ", " + newRow + ")");
+                } catch (RuntimeException e) {
+                    System.out.println("Invalid position: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Invalid move for piece: " + piece.getTypes());
             }
         } else {
             System.out.println("No piece found at (" + previousColumn + ", " + previousRow + ")");
@@ -71,4 +79,21 @@ public class Player <E extends TypePiece> {
             return false;
         }
     }
+    public void printAlivePiecesCount() {
+        System.out.println(name + " alive pieces: " + alivePieces.size());
+        for (E piece : alivePieces) {
+            System.out.print(piece.getTypes() + " ");
+        }
+        System.out.println(); // Nueva línea al final
+    }
+
+    public void printDeadPiecesCount() {
+        System.out.println(name + " dead pieces: " + deadPieces.size());
+        for (E piece : deadPieces) {
+            System.out.print(piece.getTypes() + " ");
+        }
+        System.out.println(); // Nueva línea al final
+    }
+
+
 }
