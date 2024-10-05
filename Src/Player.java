@@ -72,6 +72,8 @@ public class Player <E extends TypePiece> {
 
             alivePieces.remove(piece);
             deadPieces.add(piece);
+            printAlivePiecesCount();
+            printDeadPiecesCount();
             System.out.println("Removed piece from (" + column + ", " + row + ")");
             return true;
         } else {
@@ -79,6 +81,7 @@ public class Player <E extends TypePiece> {
             return false;
         }
     }
+
     public void printAlivePiecesCount() {
         System.out.println(name + " alive pieces: " + alivePieces.size());
         for (E piece : alivePieces) {

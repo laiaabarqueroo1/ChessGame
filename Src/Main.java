@@ -1,13 +1,12 @@
 package Src;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import static Src.PieceInitializer.initializeBlackPieces;
 
 public class Main {
-
-
 
     public static void main(String[] args) {
         showMenu();
@@ -46,7 +45,7 @@ public class Main {
 
     // Starts a new chess game
     public static void playNewGame() {
-        Turns<String> turns = new Turns<>();
+        Turns<String> turns = new Turns<>(); // Usar el constructor por defecto
         Board.initializeBoard();
         Scanner scanner = new Scanner(System.in);
         boolean gameEnded = false;
@@ -61,20 +60,15 @@ public class Main {
         ArrayList<TypePiece> blackPieces = initializeBlackPieces();
         Player<TypePiece> blackPlayer = new Player<>(blackPlayerName, blackPieces);
 
-
-
         while (!gameEnded) {
             Board.showBoard();
             System.out.print("Enter your move (EXAMPLE: E2 E4....): ");
             String turn = scanner.nextLine();
 
-
             // Convert the turn to coordinates and move the pieces
-            if (turnToPosition(turn)) {
+            if (turnToPosition(turn, whitePlayer, blackPlayer)) {
                 turns.addTurn(turn);
                 Board.showBoard(); // Show the board after the move
-
-
                 whitePlayer.printAlivePiecesCount();
                 blackPlayer.printAlivePiecesCount();
                 whitePlayer.printDeadPiecesCount();
@@ -106,40 +100,25 @@ public class Main {
 
     // Replays a game from a file
     public static void replayGame() {
-        try {
-            Turns<String> turns = readTurns();
-            Board.initializeBoard();
-            while (turns.getNumberOfTurns() > 0) {
-                Board.showBoard();
-                String turn = turns.takeFirstTurn();
-                System.out.println("Playing move: " + turn);
-                turnToPosition(turn);
-                Board.showBoard();
-            }
-        } catch (IOException e) {
-            System.out.println("Error loading the game: " + e.getMessage());
-        } catch (NoSuchElementException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    // Reads the file of turns and returns the list of turns
-    public static Turns<String> readTurns() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the filename to load the game: ");
         String filename = scanner.nextLine();
-        try {
-            System.out.println(" ");
-            return new Turns<>(filename);
-        } catch (IOException e) {
-            System.out.println("Error reading the file: " + e.getMessage());
-            return readTurns(); // Recursive call in case of an error
+
+        Turns<String> turns = new Turns<>();
+        turns.loadFromFile(filename); // Cargamos los turnos desde un archivo
+        Board.initializeBoard();
+        while (turns.getNumberOfTurns() > 0) {
+            Board.showBoard();
+            String turn = turns.takeFirstTurn();
+            System.out.println("Playing move: " + turn);
+            if (turnToPosition(turn, new Player<TypePiece>("", new ArrayList<>()), new Player<TypePiece>("", new ArrayList<>()))) {
+                Board.showBoard();
+            }
         }
     }
 
-
     // Converts a turn (for example, "E2 E4") into coordinates and moves the pieces
-    public static boolean turnToPosition(String turn) {
+    public static boolean turnToPosition(String turn, Player<TypePiece> currentPlayer, Player<TypePiece> opponentPlayer) {
         // Basic example of converting a turn into coordinates
         String[] parts = turn.split(" ");
         if (parts.length != 2) return false;
@@ -170,35 +149,6 @@ public class Main {
         return new int[]{x, y};
     }
 
-    /*
-    // Displays the current chess board
-    public static void showBoard() {
-        System.out.println("  A B C D E F G H");
-        for (int i = 0; i < 8; i++) {
-            System.out.print(8 - i + " ");
-            for (int j = 0; j < 8; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println(8 - i);
-        }
-        System.out.println("  A B C D E F G H");
-    }
-*/
-    /*
-    // Initializes the chess board with white and black pieces
-    public static void initializeBoard() {
-        board = new char[8][8];
-        initializeWhitePieces();
-        initializeBlackPieces();
-        for (int i = 2; i < 6; i++) {
-            Arrays.fill(board[i], ' '); // Empty squares
-        }
-    }
-
-    private static void initializeWhitePieces() {
-    }
-*/
-
     public static void checkKingsAlive() throws FinishGameExcepcion {
         boolean whiteKingAlive = false;
         boolean blackKingAlive = false;
@@ -219,19 +169,4 @@ public class Main {
         }
     }
 
-    /*
-    // Initializes the white pieces on the board
-    public static void initializeWhitePieces() {
-        board[6] = new char[]{'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'}; // Pawns
-        board[7] = new char[]{'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}; // Major pieces
-    }
-
-    // Initializes the black pieces on the board
-    public static void initializeBlackPieces() {
-        board[1] = new char[]{'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'}; // Pawns
-        board[0] = new char[]{'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}; // Major pieces
-
-    }
-
-     */
 }
