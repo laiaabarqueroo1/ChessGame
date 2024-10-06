@@ -48,8 +48,6 @@ public class Player<E extends TypePiece> {
 
         // Verificar si se encontró una pieza
         if (piece != null) {
-            System.out.println("Piece found: " + piece.getTypes() + " of class: " + piece.getClass().getName());
-
             // Verificar si el movimiento es válido utilizando el método de la clase Piece
             if (piece instanceof Piece) { // Verificamos si es instancia de Piece
                 Piece actualPiece = (Piece) piece; // Hacemos cast a Piece
@@ -118,7 +116,7 @@ public class Player<E extends TypePiece> {
 
         for (E piece : alivePieces) {
             int pieceColumnIndex = piece.getColumn() - 'A'; // Suponiendo que piece.getColumn() es un char
-            System.out.println("Checking piece: " + piece.getTypes() + " at (" + piece.getRow() + ", " + pieceColumnIndex + ")");
+
 
             // Comparamos la fila y la columna convertida
             if (piece.getRow() == row && pieceColumnIndex == column) {
