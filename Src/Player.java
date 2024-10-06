@@ -58,39 +58,30 @@ public class Player<E extends TypePiece> {
                     // Verificar si la posición de destino está ocupada por una pieza
                     char destinationPiece = board[newRow][newColumn];
 
-                    boolean isDestinationWhite = Character.isUpperCase(destinationPiece);
-                    boolean isPieceWhite = Character.isUpperCase(actualPiece.getTypes());
-
-                    // Verificar que sea el turno correcto
-                    if (isPieceWhite && !isWhiteTurn) {
-                        printError("It's not white's turn to move.");
-                        return false; // Las piezas blancas no pueden moverse si no es su turno
-                    } else if (!isPieceWhite && isWhiteTurn) {
-                        printError("It's not black's turn to move.");
-                        return false; // Las piezas negras no pueden moverse si no es su turno
+                    // Condición para comprobar si la pieza en destino es de un oponente
+                    if (destinationPiece != ' ' && Character.isLowerCase(destinationPiece) == Character.isLowerCase(actualPiece.getTypes())) {
+                        printError("You cannot move to a position occupied by your own piece.");
+                        return false; // No se puede mover a una posición ocupada por tu propia pieza
                     }
 
                     // Si la posición está ocupada por una pieza del oponente, quitarla
-                    if (destinationPiece != ' ' && isPieceWhite != isDestinationWhite) {
+                    if (destinationPiece != ' ' && Character.isLowerCase(destinationPiece) != Character.isLowerCase(actualPiece.getTypes())) {
                         try {
                             removePieceAtPosition(newColumn, newRow);
                         } catch (FinishGameExcepcion e) {
                             printError(e.getMessage());
                             return false;
                         }
-                    } else if (destinationPiece != ' ' && isPieceWhite == isDestinationWhite) {
-                        printError("You cannot move to a position occupied by your own piece.");
-                        return false; // No se puede mover a una posición ocupada por tu propia pieza
                     }
 
                     // Mover la pieza
-                    if (isPieceWhite) { // Si es una pieza blanca
-                        board[newRow][newColumn] = actualPiece.getTypes(); // Mantener en mayúsculas
-                    } else { // Si es una pieza negra
+                    if (!isWhiteTurn) { // Si no es el turno de blanco (es turno negro)
                         board[newRow][newColumn] = Character.toLowerCase(actualPiece.getTypes()); // Forzar a minúsculas
+                    } else {
+                        board[newRow][newColumn] = actualPiece.getTypes(); // Mantener en mayúsculas
                     }
                     board[previousRow][previousColumn] = ' '; // Limpiar la posición anterior
-                    actualPiece.setPosicion(newRow, newColumn); // Actualizar la posición de la pieza
+                    actualPiece.setPosicion(newRow, newColumn);
 
                     printSuccess(String.format("Moved piece to (%s, %d)", (char) (newColumn + 'A'), (8 - newRow)));
                     return true;
@@ -106,6 +97,7 @@ public class Player<E extends TypePiece> {
 
         return false;
     }
+
 
     // Remove a piece from a specific position
     public boolean removePieceAtPosition(int column, int row) throws FinishGameExcepcion {
