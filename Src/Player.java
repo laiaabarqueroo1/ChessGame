@@ -51,13 +51,22 @@ public class Player<E extends TypePiece> {
             // Verificar si el movimiento es válido utilizando el método de la clase Piece
             if (piece instanceof Piece) {
                 Piece actualPiece = (Piece) piece;
+
+                // Verificar que el movimiento es válido
                 if (actualPiece.isMoveValid(newRow, (char) (newColumn + 'A'), isWhiteTurn)) {
                     char[][] board = Board.getBoard();
 
-                    // Verificar si la posición de destino está ocupada por una pieza del oponente
-                    if (board[newRow][newColumn] != ' ' &&
-                            Character.isLowerCase(board[newRow][newColumn]) != Character.isLowerCase(actualPiece.getTypes())) {
-                        // Llamar a removePieceAtPosition para "matar" la pieza contraria
+                    // Verificar si la posición de destino está ocupada por una pieza
+                    char destinationPiece = board[newRow][newColumn];
+
+                    // Condición para comprobar si la pieza en destino es de un oponente
+                    if (destinationPiece != ' ' && Character.isLowerCase(destinationPiece) == Character.isLowerCase(actualPiece.getTypes())) {
+                        printError("You cannot move to a position occupied by your own piece.");
+                        return false; // No se puede mover a una posición ocupada por tu propia pieza
+                    }
+
+                    // Si la posición está ocupada por una pieza del oponente, quitarla
+                    if (destinationPiece != ' ' && Character.isLowerCase(destinationPiece) != Character.isLowerCase(actualPiece.getTypes())) {
                         try {
                             removePieceAtPosition(newColumn, newRow);
                         } catch (FinishGameExcepcion e) {
@@ -67,7 +76,6 @@ public class Player<E extends TypePiece> {
                     }
 
                     // Mover la pieza
-                    // ** Aquí es donde debes asegurarte de mantener las piezas negras en minúsculas **
                     if (!isWhiteTurn) { // Si no es el turno de blanco (es turno negro)
                         board[newRow][newColumn] = Character.toLowerCase(actualPiece.getTypes()); // Forzar a minúsculas
                     } else {
@@ -90,6 +98,7 @@ public class Player<E extends TypePiece> {
 
         return false;
     }
+
 
 
     // Remove a piece from a specific position
