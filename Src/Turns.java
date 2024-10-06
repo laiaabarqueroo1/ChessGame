@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Turns<E> {
-
     // A list that stores the turns of the game
     private ArrayList<E> turnList;
 

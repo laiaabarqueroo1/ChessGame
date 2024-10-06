@@ -24,6 +24,7 @@ public class Board {
     }
 
 
+
     // Initializes the chess board with white and black pieces
         public static void initializeBoard() {
             board = new char[8][8];
@@ -51,7 +52,7 @@ public class Board {
             // Major pieces
             char[] majorPiecesWhite = {Piece.Rook, Piece.Knight, Piece.Bishop, Piece.Queen, Piece.King, Piece.Bishop, Piece.Knight, Piece.Rook};
             for (int i = 0; i < majorPiecesWhite.length; i++) {
-                Piece piece = new Piece(majorPiecesWhite[i], 7, (char) i); // Create major piece
+                Piece piece = new Piece(majorPiecesWhite[i], 7, (char) ('A' + i)); // Create major piece
                 whitePieces.add(piece); // Add to the list
                 board[7][i] = piece.getTypes(); // Place on the board
             }
@@ -70,7 +71,7 @@ public class Board {
         // Major pieces
         char[] majorPiecesBlack = {Piece.Rook, Piece.Knight, Piece.Bishop, Piece.Queen, Piece.King, Piece.Bishop, Piece.Knight, Piece.Rook};
         for (int i = 0; i < majorPiecesBlack.length; i++) {
-            Piece piece = new Piece(majorPiecesBlack[i], 7, (char) i); // Create major piece
+            Piece piece = new Piece(majorPiecesBlack[i], 7, (char) ('A' + i)); // Create major piece
             blackPieces.add(piece); // Add to the list
             board[7][i] = piece.getTypes(); // Place on the board
             board[0][i] = Character.toLowerCase(piece.getTypes()); //LoweCase to difference de Black one
