@@ -111,51 +111,26 @@ public class Main {
 
 
 
-    // Replays a game from a file
     public static void replayGame() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the filename to load the game: ");
         String filename = scanner.nextLine();
 
         Turns<String> turns = new Turns<>();
+
+        // Cargar los turnos desde el archivo
         turns.loadFromFile(filename); // Load turns from a file
-        Board.initializeBoard();
 
-        // Initialize players for replay
-        ArrayList<Piece> whitePieces = Board.getWhitePieces(); // Get white pieces from the board
-        Player<Piece> whitePlayer = new Player<>("White (Replay)", whitePieces); // Dummy name for replay
-        ArrayList<Piece> blackPieces = Board.getBlackPieces(); // Get black pieces from the board
-        Player<Piece> blackPlayer = new Player<>("Black (Replay)", blackPieces); // Dummy name for replay
-
-        // Simulate the game turn by turn
-        boolean isWhiteTurn = true; // Set initial turn for replay
-        while (turns.getNumberOfTurns() > 0) {
-            Board.showBoard();
-            String turn = turns.takeFirstTurn();
-            System.out.println("Playing move: " + turn);
-
-            // Reuse the logic for converting positions
-            String[] positions = turn.split(" ");
-            // Assume the pieces belong to the respective players based on the turn order
-            if (isWhiteTurn) {
-                if (!whitePlayer.movePiece(positions[0], positions[1], isWhiteTurn)) {
-                    System.out.println("Invalid move in replay for White player.");
-                }
-            } else {
-                if (!blackPlayer.movePiece(positions[0], positions[1], isWhiteTurn)) {
-                    System.out.println("Invalid move in replay for Black player.");
-                }
-            }
-
-            // Alternate turns
-            isWhiteTurn = !isWhiteTurn;
+        // Mostrar los turnos cargados
+        System.out.println("Loaded turns:");
+        for (int i = 0; i < turns.getNumberOfTurns(); i++) {
+            System.out.println(turns.takeFirstTurn()); // Mostrar cada turno
         }
 
-        // End replay and show the final board state
-        Board.showBoard();
-        System.out.println("Replay finished.");
-        scanner.close(); // Close scanner to avoid resource leak
+        // Al final, volver al menú principal
+        System.out.println("Replay finished. Returning to main menu.");
     }
+
 
     public static void checkKingsAlive() throws FinishGameExcepcion {
         boolean whiteKingAlive = false;
