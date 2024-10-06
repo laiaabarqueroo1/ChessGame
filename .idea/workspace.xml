@@ -6,18 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/MovablePiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/MovablePiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Turns.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Turns.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/MovablePiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Piece.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Turns.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Turns.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,29 +133,9 @@
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Src/Player.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="83" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Src/Main.java</url>
           <line>72</line>
           <option name="timeStamp" value="84" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Src/Player.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="85" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Src/Player.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Src/Player.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="87" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

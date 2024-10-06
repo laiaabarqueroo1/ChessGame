@@ -26,8 +26,7 @@ public class Player<E extends TypePiece> {
     public String getName() {
         return name;
     }
-/*
-    // Modificado: añadido isWhiteTurn como parámetro
+
     public boolean movePiece(String from, String to, boolean isWhiteTurn) {
         // Convertir las posiciones de cadena a coordenadas
         int[] source = convertPosition(from);
@@ -57,11 +56,16 @@ public class Player<E extends TypePiece> {
                 if (actualPiece.isMoveValid(newRow, (char) (newColumn + 'A'), isWhiteTurn)) { // Usar el nuevo parámetro
                     char[][] board = Board.getBoard();
 
-                    // Validar que la posición de destino no está ocupada por una pieza del mismo color
+                    // Verificar si la posición de destino está ocupada por una pieza del oponente
                     if (board[newRow][newColumn] != ' ' &&
-                            Character.isLowerCase(board[newRow][newColumn]) == Character.isLowerCase(actualPiece.getTypes())) {
-                        System.out.println("Invalid move: destination occupied by your own piece.");
-                        return false;
+                            Character.isLowerCase(board[newRow][newColumn]) != Character.isLowerCase(actualPiece.getTypes())) {
+                        // Llamar a removePieceAtPosition para "matar" la pieza contraria
+                        try {
+                            removePieceAtPosition(newColumn, newRow); // Matar la pieza
+                        } catch (FinishGameExcepcion e) {
+                            System.out.println(e.getMessage());
+                            return false; // Si el juego termina por la captura del rey, no se puede mover
+                        }
                     }
 
                     // Mover la pieza
@@ -83,54 +87,30 @@ public class Player<E extends TypePiece> {
 
         return false; // Retorna false si no se pudo mover la pieza
     }
-*/
 
-    public boolean movePiece(String from, String to, boolean isWhiteTurn) {
-        // Convertir las posiciones de cadena a coordenadas
-        int[] source = convertPosition(from);
-        int[] destination = convertPosition(to);
 
-        // Verificar si la conversión fue exitosa
-        if (source == null || destination == null) {
-            System.out.println("Invalid position format.");
-            return false;
-        }
-
-        int previousRow = source[0];
-        int previousColumn = source[1];
-        int newRow = destination[0];
-        int newColumn = destination[1];
-
-        // Buscar la pieza en la posición anterior
-        E piece = searchAtPosition(previousRow, previousColumn);
-
-        // Verificar si se encontró una pieza
+    // Remove a piece from a specific position
+    public boolean removePieceAtPosition(int column, int row) throws FinishGameExcepcion {
+        E piece = searchAtPosition(row, column);
         if (piece != null) {
-            // Código para mover la pieza aquí...
-            char[][] board = Board.getBoard();
-
-            // Validar que la posición de destino no está ocupada por una pieza del mismo color
-            if (board[newRow][newColumn] != ' ' &&
-                    Character.isLowerCase(board[newRow][newColumn]) == Character.isLowerCase(piece.getTypes())) {
-                System.out.println("Invalid move: destination occupied by your own piece.");
-                return false;
+            // Check if the piece is the king and call finishGame
+            if (piece.finishGame()) { // Using the finishGame method to check
+                throw new FinishGameExcepcion(); // Throw the exception if the king is captured
             }
 
-            // Mover la pieza
-            board[newRow][newColumn] = piece.getTypes();
-            board[previousRow][previousColumn] = ' '; // Limpiar la posición anterior
-
-            // Actualizar la posición de la pieza
-            piece.setPosicion(newRow, newColumn); // Asegúrate de que el método setPosicion() actualiza tanto fila como columna
-
-            System.out.println("Moved piece to (" + (char) (newColumn + 'A') + ", " + (8 - newRow) + ")");
-            return true; // Retorna true si el movimiento fue exitoso
+            alivePieces.remove(piece);
+            deadPieces.add(piece);
+            printAlivePiecesCount();
+            printDeadPiecesCount();
+            System.out.println("Removed piece from (" + column + ", " + row + ")");
+            return true;
         } else {
-            System.out.println("No piece found at specified position.");
+            System.out.println("No piece found at (" + column + ", " + row + ")");
+            return false;
         }
-
-        return false; // Retorna false si no se pudo mover la pieza
     }
+
+
 
 
     public E searchAtPosition(int row, int column) {
