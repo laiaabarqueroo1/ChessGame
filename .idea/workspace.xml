@@ -4,33 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/.idea/ChessGame.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/A" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/D" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/DD" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Files/torns_20240210_115710.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/J" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/S" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Board.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/FinishGameExcepcion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/MovablePiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Piece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Turns.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/TypePiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/k" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/laia" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/marc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/ss" beforeDir="false" />
-    </list>
+    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
