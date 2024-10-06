@@ -65,6 +65,13 @@ public class Player <E extends TypePiece> {
     public boolean removePieceAtPosition(int column, int row) throws FinishGameExcepcion {
         E piece = searchAtPosition(row, column);
         if (piece != null) {
+
+            // Comprovar si la peça és del mateix jugador
+            if (!alivePieces.contains(piece)) {
+                System.out.println("You cannot remove your own piece at (" + column + ", " + row + ").");
+                return false; // No es pot eliminar una peça del mateix jugador
+            }
+
             // Check if the piece is the king and call finishGame
             if (piece.finishGame()) { // Using the finishGame method to check
                 throw new FinishGameExcepcion(); // Throw the exception if the king is captured
