@@ -8,7 +8,6 @@ public class Player<E extends TypePiece> {
     private ArrayList<E> alivePieces;
     private List<E> deadPieces;
 
-    // Constructor para inicializar el jugador con un conjunto de piezas vivas
     public Player(String name, List<E> initialPieces) {
         this.name = name;
         this.alivePieces = new ArrayList<>(initialPieces);
@@ -26,12 +25,11 @@ public class Player<E extends TypePiece> {
     public String getName() {
         return name;
     }
-    public boolean movePiece(String from, String to, boolean isWhiteTurn) {
-        // Convertir las posiciones de cadena a coordenadas
+
+    public boolean movePiece(String from, String to, boolean isWhiteTurn) throws FinishGameExcepcion {
         int[] source = convertPosition(from);
         int[] destination = convertPosition(to);
 
-        // Verificar si la conversión fue exitosa
         if (source == null || destination == null) {
             printError("Invalid position format.");
             return false;
@@ -42,46 +40,27 @@ public class Player<E extends TypePiece> {
         int newRow = destination[0];
         int newColumn = destination[1];
 
-        // Buscar la pieza en la posición anterior
         E piece = searchAtPosition(previousRow, previousColumn);
 
-        // Verificar si se encontró una pieza
-        if (piece != null) {
-            // Verificar si el movimiento es válido utilizando el método de la clase Piece
-            if (piece instanceof Piece) {
-                Piece actualPiece = (Piece) piece;
-                if (actualPiece.isMoveValid(newRow, (char) (newColumn + 'A'), isWhiteTurn)) {
-                    char[][] board = Board.getBoard();
+        if (piece != null && piece instanceof Piece) {
+            Piece actualPiece = (Piece) piece;
+            if (actualPiece.isMoveValid(newRow, (char) (newColumn + 'A'), isWhiteTurn)) {
+                char[][] board = Board.getBoard();
+                handleCapture(board, newRow, newColumn, actualPiece);
 
-                    // Verificar si la posición de destino está ocupada por una pieza del oponente
-                    if (board[newRow][newColumn] != ' ' &&
-                            Character.isLowerCase(board[newRow][newColumn]) != Character.isLowerCase(actualPiece.getTypes())) {
-                        // Llamar a removePieceAtPosition para "matar" la pieza contraria
-                        try {
-                            removePieceAtPosition(newColumn, newRow);
-                        } catch (FinishGameExcepcion e) {
-                            printError(e.getMessage());
-                            return false;
-                        }
-                    }
-
-                    // Mover la pieza
-                    // ** Aquí es donde debes asegurarte de mantener las piezas negras en minúsculas **
-                    if (!isWhiteTurn) { // Si no es el turno de blanco (es turno negro)
-                        board[newRow][newColumn] = Character.toLowerCase(actualPiece.getTypes()); // Forzar a minúsculas
-                    } else {
-                        board[newRow][newColumn] = actualPiece.getTypes(); // Mantener en mayúsculas
-                    }
-                    board[previousRow][previousColumn] = ' '; // Limpiar la posición anterior
-                    actualPiece.setPosicion(newRow, newColumn);
-
-                    printSuccess(String.format("Moved piece to (%s, %d)", (char) (newColumn + 'A'), (8 - newRow)));
-                    return true;
+                // Mover la pieza
+                if (!isWhiteTurn) {
+                    board[newRow][newColumn] = Character.toLowerCase(actualPiece.getTypes());
                 } else {
-                    printError(String.format("Invalid move for piece: %s", actualPiece.getTypes()));
+                    board[newRow][newColumn] = actualPiece.getTypes();
                 }
+                board[previousRow][previousColumn] = ' ';
+                actualPiece.setPosicion(newRow, newColumn);
+
+                printSuccess(String.format("Moved piece to (%s, %d)", (char) (newColumn + 'A'), (8 - newRow)));
+                return true;
             } else {
-                printError("The piece is not an instance of Piece class.");
+                printError(String.format("Invalid move for piece: %s", actualPiece.getTypes()));
             }
         } else {
             printError("No piece found at specified position.");
@@ -90,50 +69,42 @@ public class Player<E extends TypePiece> {
         return false;
     }
 
+    private void handleCapture(char[][] board, int newRow, int newColumn, Piece actualPiece) throws FinishGameExcepcion {
+        if (board[newRow][newColumn] != ' ' &&
+                Character.isLowerCase(board[newRow][newColumn]) != Character.isLowerCase(actualPiece.getTypes())) {
+            removePieceAtPosition(newColumn, newRow);
+        }
+    }
 
-    // Remove a piece from a specific position
     public boolean removePieceAtPosition(int column, int row) throws FinishGameExcepcion {
         E piece = searchAtPosition(row, column);
         if (piece != null) {
-            // Comprobar si la pieza es del mismo jugador
-           
-
-            // Verificar si la pieza es el rey y lanzar excepción si es necesario
             if (piece.finishGame()) {
                 throw new FinishGameExcepcion();
             }
 
-            // Eliminar la pieza de las piezas vivas y agregarla a las piezas muertas
-            alivePieces.remove(piece); // Eliminar la pieza de las piezas vivas
-            deadPieces.add(piece);      // Añadir la pieza a las piezas muertas
+            alivePieces.remove(piece);
+            deadPieces.add(piece);
 
-            // Actualizar los conteos e imprimir resultados
             printSuccess("Piece removed: " + piece.getTypes());
-            printAlivePiecesCount();  // Imprimir el conteo de piezas vivas
-            printDeadPiecesCount();   // Imprimir el conteo de piezas muertas
+            printAlivePiecesCount();
+            printDeadPiecesCount();
 
-            return true; // Retornar true si se eliminó correctamente
+            return true;
         } else {
             printError(String.format("No piece found at (%d, %d)", column, row));
-            return false; // Retornar false si no se encontró la pieza
+            return false;
         }
     }
 
-
     public E searchAtPosition(int row, int column) {
-        printInfo(String.format("Searching for piece at row: %d, column: %d", row, column));
-
         for (E piece : alivePieces) {
-            int pieceColumnIndex = piece.getColumn() - 'A'; // Assuming piece.getColumn() is a char
-
-            // Compare row and converted column
+            int pieceColumnIndex = piece.getColumn() - 'A';
             if (piece.getRow() == row && pieceColumnIndex == column) {
-                printSuccess(String.format("Piece found at position: (%d, %d)", row, column));
                 return piece;
             }
         }
 
-        printError("No piece found at specified position.");
         return null;
     }
 
@@ -143,28 +114,22 @@ public class Player<E extends TypePiece> {
             return null;
         }
 
-        char column = position.charAt(0); // 'A' a 'H'
-        char row = position.charAt(1); // '1' a '8'
+        char column = position.charAt(0);
+        char row = position.charAt(1);
 
-        // Validate that the column is between 'A' and 'H'
         if (column < 'A' || column > 'H') {
             printError("Invalid column: " + column);
             return null;
         }
 
-        // Validate that the row is between '1' and '8'
         if (row < '1' || row > '8') {
             printError("Invalid row: " + row);
             return null;
         }
 
-        // Adjust conversion:
-        int x = 8 - Character.getNumericValue(row); // Row should be 0 to 7
-        int y = column - 'A'; // Convert column 'A'-'H' to 0-7
+        int x = 8 - Character.getNumericValue(row);
+        int y = column - 'A';
 
-        printInfo(String.format("Converted position %s to coordinates: (%d, %d)", position, x, y));
-
-        // Return position as {row, column}
         return new int[]{x, y};
     }
 
@@ -176,17 +141,11 @@ public class Player<E extends TypePiece> {
         System.out.println("[ERROR] " + message);
     }
 
-    private void printInfo(String message) {
-        System.out.println("[INFO] " + message);
-    }
-
     public void printAlivePiecesCount() {
         System.out.println("\n" + name + "'s Alive Pieces:");
         System.out.println("=====================");
         System.out.println("Count: " + alivePieces.size());
-        for (E piece : alivePieces) {
-            System.out.print(piece.getTypes() + " " );
-        }
+        alivePieces.forEach(piece -> System.out.print(piece.getTypes() + " "));
         System.out.println("\n");
     }
 
@@ -194,9 +153,7 @@ public class Player<E extends TypePiece> {
         System.out.println("\n" + name + "'s Dead Pieces:");
         System.out.println("=====================");
         System.out.println("Count: " + deadPieces.size());
-        for (E piece : deadPieces) {
-            System.out.print(piece.getTypes() + " " );
-        }
+        deadPieces.forEach(piece -> System.out.print(piece.getTypes() + " "));
         System.out.println("\n");
     }
 }

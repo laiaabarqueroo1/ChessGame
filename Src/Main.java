@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FinishGameExcepcion {
         showMenu();
     }
 
     // Displays the main menu
-    public static void showMenu() {
+    public static void showMenu() throws FinishGameExcepcion {
         Scanner scanner = new Scanner(System.in);
         int option = 0;
 
@@ -42,7 +42,7 @@ public class Main {
         scanner.close(); // Close scanner to avoid resource leak
     }
 
-    public static void playNewGame() {
+    public static void playNewGame() throws FinishGameExcepcion {
         // Inicializar el tablero y los jugadores
         Turns<String> turns = new Turns<>();
         Board.initializeBoard();
