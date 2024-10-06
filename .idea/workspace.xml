@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns" />
+    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Player.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +43,7 @@
     "Application.Board.executor": "Run",
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Laia",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -50,7 +54,7 @@
   }
 }]]></component>
   <component name="RunManager" selected="Application.Main">
-    <configuration name="Board" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Board" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Src.Board" />
       <module name="ChessGame" />
       <extension name="coverage">
@@ -79,7 +83,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Board" />
       </list>
     </recent_temporary>
   </component>
@@ -123,17 +126,23 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Src/Board.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="21" />
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/Src/Player.java</url>
+          <line>4</line>
+          <properties field="Bishop" class="Src.Piece" />
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Src/Board.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="22" />
+          <url>file://$PROJECT_DIR$/Src/Main.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="source" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
