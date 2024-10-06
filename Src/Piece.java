@@ -92,14 +92,6 @@ public class Piece implements TypePiece {
                         if (this.Line == 7 && lineDifference == -2) return true; // Primer movimiento del peón
                     }
                 }
-                // Captura en diagonal
-                else if (Math.abs(columnDifference) == 1) {
-                    if (isWhiteTurn) {
-                        if (lineDifference == 1) return true; // Captura en diagonal (blanca)
-                    } else {
-                        if (lineDifference == -1) return true; // Captura en diagonal (negra)
-                    }
-                }
                 break;
             case Bishop: // Alfil
                 return Math.abs(lineDifference) == Math.abs(columnDifference); // Movimiento diagonal
