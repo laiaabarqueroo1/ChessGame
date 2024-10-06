@@ -64,23 +64,21 @@ public class Main {
 
         while (!gameEnded) {
             Board.showBoard(); // Mostrar el tablero
-            System.out.print("Enter your move (EXAMPLE: E2 E4): ");
+            System.out.print((isWhiteTurn ? whitePlayerName : blackPlayerName) + ", enter your move (EXAMPLE: E2 E4): ");
             String turn = scanner.nextLine();
 
             String[] positions = turn.split(" ");
             if (positions.length == 2) {
-                if (isWhiteTurn) {
-                    if (!whitePlayer.movePiece(positions[0], positions[1], isWhiteTurn)) {
-                        System.out.println("Invalid move for White player.");
-                        continue;
-                    }
-                } else {
-                    if (!blackPlayer.movePiece(positions[0], positions[1], isWhiteTurn)) {
-                        System.out.println("Invalid move for Black player.");
-                        continue;
-                    }
+                // Determina el jugador actual
+                Player<Piece> currentPlayer = isWhiteTurn ? whitePlayer : blackPlayer;
+
+                // Realiza el movimiento
+                if (!currentPlayer.movePiece(positions[0], positions[1], isWhiteTurn)) {
+                    System.out.println("Invalid move for " + (isWhiteTurn ? "White" : "Black") + " player.");
+                    continue; // Si el movimiento es inválido, continuar el ciclo y pedir otro movimiento
                 }
 
+                // Agregar el movimiento a los turnos
                 turns.addTurn(turn);
                 whitePlayer.printAlivePiecesCount();
                 blackPlayer.printAlivePiecesCount();
@@ -89,10 +87,10 @@ public class Main {
                     checkKingsAlive(); // Comprobar si ambos reyes están vivos
                 } catch (FinishGameExcepcion e) {
                     System.out.println(e.getMessage());
-                    gameEnded = true;
+                    gameEnded = true; // Terminar el juego si se lanza una excepción
                 }
 
-                isWhiteTurn = !isWhiteTurn; // Alternar turnos
+                isWhiteTurn = !isWhiteTurn; // Alternar turnos después de un movimiento válido
             } else {
                 System.out.println("Invalid input. Please enter a valid move.");
             }
@@ -108,6 +106,7 @@ public class Main {
             System.out.println("Error saving the game: " + e.getMessage());
         }
     }
+
 
 
 
