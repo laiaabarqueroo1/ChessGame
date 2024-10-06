@@ -104,10 +104,7 @@ public class Player<E extends TypePiece> {
         E piece = searchAtPosition(row, column);
         if (piece != null) {
             // Comprobar si la pieza es del mismo jugador
-            if (alivePieces.contains(piece)) {
-                printError("You cannot remove your own piece at (" + column + ", " + row + ").");
-                return false; // No se puede eliminar una pieza del mismo jugador
-            }
+           
 
             // Verificar si la pieza es el rey y lanzar excepción si es necesario
             if (piece.finishGame()) {

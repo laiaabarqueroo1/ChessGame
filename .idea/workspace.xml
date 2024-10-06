@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns" />
+    <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Player.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,7 +103,7 @@
       <updated>1727854848896</updated>
       <workItem from="1727854849934" duration="11900000" />
       <workItem from="1728234742918" duration="723000" />
-      <workItem from="1728241267783" duration="15000" />
+      <workItem from="1728241832606" duration="304000" />
     </task>
     <task id="LOCAL-00001" summary="update turns">
       <option name="closed" value="true" />
@@ -122,6 +125,21 @@
     <option name="LAST_COMMIT_MESSAGE" value="update turns" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/Src/Player.java</url>
+          <line>4</line>
+          <properties field="Bishop" class="Src.Piece" />
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Src/Main.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="source" />
