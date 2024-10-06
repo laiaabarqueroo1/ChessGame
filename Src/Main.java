@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-
 public class Main {
 
     public static void main(String[] args) {
@@ -67,8 +66,10 @@ public class Main {
         // Fetching initialized black pieces
         ArrayList<Piece> blackPieces = Board.getBlackPieces(); // Get black pieces from the board
         // Ensure Player is compatible with the type of pieces you're using
-        Player<Piece> blackPlayer = new Player<>(blackPlayerName, blackPieces); // Correcting Type
+        Player<Piece> blackPlayer = new Player<>(blackPlayerName, blackPieces);
 
+
+        boolean isWhiteTurn = true;
         boolean gameEnded = false;
 
         while (!gameEnded) {
@@ -76,9 +77,33 @@ public class Main {
             System.out.print("Enter your move (EXAMPLE: E2 E4....): ");
             String turn = scanner.nextLine();
 
-            // Convert the turn to coordinates and move the pieces
-            if (turnToPosition(turn, whitePlayer, blackPlayer)) {
-                turns.addTurn(turn); // Record the turn
+
+            String[] positions = turn.split(" ");
+            if (positions.length == 2) {
+                int[] from = convertPosition(positions[0]);
+                int[] to = convertPosition(positions[1]);
+
+                if (from == null || to == null) {
+                    System.out.println("Invalid move format. Please use the format (e.g., E2 E4).");
+                    continue;
+                }
+
+                int previousRow = from[0];
+                int previousColumn = from[1];
+                int newRow = to[0];
+                int newColumn = to[1];
+
+                // Move the piece for the current player
+                if (isWhiteTurn) {
+                    whitePlayer.movePiece(previousColumn, previousRow, newColumn, newRow);
+                    Board.showBoard();
+                } else {
+                    blackPlayer.movePiece(previousColumn, previousRow, newColumn, newRow);
+                    Board.showBoard();
+                }
+
+                // Add the turn to the list of turns
+                turns.addTurn(turn);
                 Board.showBoard(); // Show the board after the move
                 whitePlayer.printAlivePiecesCount(); // Show alive pieces count for white
                 blackPlayer.printAlivePiecesCount(); // Show alive pieces count for black
@@ -90,8 +115,11 @@ public class Main {
                     System.out.println(e.getMessage()); // Display finish message
                     gameEnded = true; // End the game
                 }
+
+                // Alternate turns
+                isWhiteTurn = !isWhiteTurn;
             } else {
-                System.out.println("Invalid move. Please try again.");
+                System.out.println("Invalid input. Please enter a valid move.");
             }
         }
 
@@ -107,7 +135,6 @@ public class Main {
     }
 
 
-
     // Replays a game from a file
     public static void replayGame() {
         Scanner scanner = new Scanner(System.in);
@@ -115,18 +142,39 @@ public class Main {
         String filename = scanner.nextLine();
 
         Turns<String> turns = new Turns<>();
-        turns.loadFromFile(filename); // Cargamos los turnos desde un archivo
+        turns.loadFromFile(filename); // Load turns from a file
         Board.initializeBoard();
+
+        // Simulate the game turn by turn
         while (turns.getNumberOfTurns() > 0) {
             Board.showBoard();
             String turn = turns.takeFirstTurn();
             System.out.println("Playing move: " + turn);
-            if (turnToPosition(turn, new Player<Piece>("", new ArrayList<>()), new Player<Piece>("", new ArrayList<>()))) {
-                Board.showBoard();
+
+            // Reuse the logic for converting positions
+            String[] positions = turn.split(" ");
+            int[] from = convertPosition(positions[0]);
+            int[] to = convertPosition(positions[1]);
+
+            if (from != null && to != null) {
+                // Move the piece on the board during replay
+                int previousRow = from[0];
+                int previousColumn = from[1];
+                int newRow = to[0];
+                int newColumn = to[1];
+
+                // Simulate move (assuming the replay doesn't alternate turns)
+                Board.getBoard()[newRow][newColumn] = Board.getBoard()[previousRow][previousColumn];
+                Board.getBoard()[previousRow][previousColumn] = ' ';
+            } else {
+                System.out.println("Invalid move in file: " + turn);
             }
         }
     }
 
+
+
+        /*
     // Converts a turn (for example, "E2 E4") into coordinates and moves the pieces
     public static boolean turnToPosition(String turn, Player<Piece> currentPlayer, Player<Piece> opponentPlayer) {
         // Basic example of converting a turn into coordinates
@@ -143,9 +191,9 @@ public class Main {
         Board.getBoard()[source[0]][source[1]] = ' ';
         return true;
     }
-
+*/
     // Converts a position like "E2" into board coordinates
-    public static int[] convertPosition(String position) {
+    public static int[] convertPosition (String position) {
         if (position.length() != 2) return null;
 
         char column = position.charAt(0);

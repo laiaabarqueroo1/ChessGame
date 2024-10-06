@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b20867cf-b43e-4a19-a9f4-0baf08aeef5d" name="Changes" comment="update turns">
-      <change afterPath="$PROJECT_DIR$/laia" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/marc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/D" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChessGame/Src/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChessGame/Src/PieceInitializer.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +46,7 @@
     "Application.Board.executor": "Run",
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Laia",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -129,19 +131,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Src/Main.java</url>
-          <line>132</line>
-          <option name="timeStamp" value="15" />
+          <url>file://$PROJECT_DIR$/Src/Board.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Src/Main.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Src/Main.java</url>
-          <line>143</line>
-          <option name="timeStamp" value="18" />
+          <url>file://$PROJECT_DIR$/Src/Board.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
