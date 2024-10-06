@@ -104,11 +104,17 @@ public class Piece implements TypePiece {
             case Bishop: // Alfil
                 return Math.abs(lineDifference) == Math.abs(columnDifference); // Movimiento diagonal
             case Rook: // Torre
-                return (newLine == this.Line || newColumn == this.Column); // Movimiento vertical u horizontal
+                // Movimiento vertical u horizontal
+                if (newLine == this.Line || newColumn == this.Column) {
+                    return isPathClear(newLine, newColumn); // Comprobar si el camino está despejado
+                }
+                break;
             case Queen: // Reina
-                return (Math.abs(lineDifference) == Math.abs(columnDifference) || newLine == this.Line || newColumn == this.Column);
+                return (Math.abs(lineDifference) == Math.abs(columnDifference) ||
+                        newLine == this.Line || newColumn == this.Column);
             case Knight: // Caballo
-                return (Math.abs(lineDifference) == 2 && Math.abs(columnDifference) == 1) || (Math.abs(lineDifference) == 1 && Math.abs(columnDifference) == 2);
+                return (Math.abs(lineDifference) == 2 && Math.abs(columnDifference) == 1) ||
+                        (Math.abs(lineDifference) == 1 && Math.abs(columnDifference) == 2);
             case King: // Rey
                 return Math.abs(lineDifference) <= 1 && Math.abs(columnDifference) <= 1; // Una casilla en cualquier dirección
         }
@@ -116,6 +122,34 @@ public class Piece implements TypePiece {
         return false; // Si no coincide con ninguna pieza
     }
 
+    private boolean isPathClear(int newLine, char newColumn) {
+        char[][] board = Board.getBoard(); // Obtener el tablero
+        int columnStart = this.Column - 'A'; // Índice de columna actual
+        int columnEnd = newColumn - 'A'; // Índice de columna de destino
+
+        // Si nos movemos verticalmente
+        int rowStart = 0;
+        if (columnStart == columnEnd) {
+            rowStart = this.Line;
+            int step = newLine > rowStart ? 1 : -1; // Determina la dirección
+            for (int i = rowStart + step; i != newLine; i += step) {
+                if (board[i][columnStart] != ' ') {
+                    return false; // Hay una pieza en el camino
+                }
+            }
+        }
+        // Si nos movemos horizontalmente
+        else if (rowStart == newLine) {
+            int step = columnEnd > columnStart ? 1 : -1; // Determina la dirección
+            for (int i = columnStart + step; i != columnEnd; i += step) {
+                if (board[rowStart][i] != ' ') {
+                    return false; // Hay una pieza en el camino
+                }
+            }
+        }
+
+        return true; // El camino está claro
+    }
 
 
 
