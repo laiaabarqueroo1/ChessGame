@@ -51,25 +51,24 @@ public class Player<E extends TypePiece> {
             if (piece instanceof Piece) {
                 Piece actualPiece = (Piece) piece;
 
-                // Obtener si la pieza es blanca o negra
-                boolean isPieceWhite = Character.isUpperCase(actualPiece.getTypes());
-
-                // Verificar que sea el turno correcto
-                if (isWhiteTurn && !isPieceWhite) {
-                    printError("It's white's turn, black pieces cannot move.");
-                    return false; // Las piezas negras no pueden moverse si es el turno de las blancas
-                } else if (!isWhiteTurn && isPieceWhite) {
-                    printError("It's black's turn, white pieces cannot move.");
-                    return false; // Las piezas blancas no pueden moverse si es el turno de las negras
-                }
-
                 // Verificar que el movimiento es válido
                 if (actualPiece.isMoveValid(newRow, (char) (newColumn + 'A'), isWhiteTurn)) {
                     char[][] board = Board.getBoard();
 
                     // Verificar si la posición de destino está ocupada por una pieza
                     char destinationPiece = board[newRow][newColumn];
+
                     boolean isDestinationWhite = Character.isUpperCase(destinationPiece);
+                    boolean isPieceWhite = Character.isUpperCase(actualPiece.getTypes());
+
+                    // Verificar que sea el turno correcto
+                    if (isPieceWhite && !isWhiteTurn) {
+                        printError("It's not white's turn to move.");
+                        return false; // Las piezas blancas no pueden moverse si no es su turno
+                    } else if (!isPieceWhite && isWhiteTurn) {
+                        printError("It's not black's turn to move.");
+                        return false; // Las piezas negras no pueden moverse si no es su turno
+                    }
 
                     // Si la posición está ocupada por una pieza del oponente, quitarla
                     if (destinationPiece != ' ' && isPieceWhite != isDestinationWhite) {
@@ -108,13 +107,12 @@ public class Player<E extends TypePiece> {
         return false;
     }
 
-
     // Remove a piece from a specific position
     public boolean removePieceAtPosition(int column, int row) throws FinishGameExcepcion {
         E piece = searchAtPosition(row, column);
         if (piece != null) {
             // Comprobar si la pieza es del mismo jugador
-            if (!alivePieces.contains(piece)) {
+            if (alivePieces.contains(piece)) {
                 printError("You cannot remove your own piece at (" + column + ", " + row + ").");
                 return false; // No se puede eliminar una pieza del mismo jugador
             }
@@ -125,21 +123,20 @@ public class Player<E extends TypePiece> {
             }
 
             // Eliminar la pieza de las piezas vivas y agregarla a las piezas muertas
-            alivePieces.remove(piece); // Eliminar la pieza viva
-            deadPieces.add(piece);      // Añadir a las piezas muertas
+            alivePieces.remove(piece); // Eliminar la pieza de las piezas vivas
+            deadPieces.add(piece);      // Añadir la pieza a las piezas muertas
 
-            // Actualizar conteos de piezas vivas y muertas
-            printAlivePiecesCount(); // Imprimir el conteo de piezas vivas
-            printDeadPiecesCount();  // Imprimir el conteo de piezas muertas
+            // Actualizar los conteos e imprimir resultados
+            printSuccess("Piece removed: " + piece.getTypes());
+            printAlivePiecesCount();  // Imprimir el conteo de piezas vivas
+            printDeadPiecesCount();   // Imprimir el conteo de piezas muertas
 
-            printSuccess(String.format("Removed piece from (%d, %d)", column, row));
             return true; // Retornar true si se eliminó correctamente
         } else {
             printError(String.format("No piece found at (%d, %d)", column, row));
             return false; // Retornar false si no se encontró la pieza
         }
     }
-
 
 
     public E searchAtPosition(int row, int column) {
