@@ -101,6 +101,7 @@ public class Player<E extends TypePiece> {
 
 
 
+
     // Remove a piece from a specific position
     public boolean removePieceAtPosition(int column, int row) throws FinishGameExcepcion {
         E piece = searchAtPosition(row, column);
