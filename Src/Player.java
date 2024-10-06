@@ -67,8 +67,13 @@ public class Player<E extends TypePiece> {
                     }
 
                     // Mover la pieza
-                    board[newRow][newColumn] = actualPiece.getTypes();
-                    board[previousRow][previousColumn] = ' ';
+                    // ** Aquí es donde debes asegurarte de mantener las piezas negras en minúsculas **
+                    if (!isWhiteTurn) { // Si no es el turno de blanco (es turno negro)
+                        board[newRow][newColumn] = Character.toLowerCase(actualPiece.getTypes()); // Forzar a minúsculas
+                    } else {
+                        board[newRow][newColumn] = actualPiece.getTypes(); // Mantener en mayúsculas
+                    }
+                    board[previousRow][previousColumn] = ' '; // Limpiar la posición anterior
                     actualPiece.setPosicion(newRow, newColumn);
 
                     printSuccess(String.format("Moved piece to (%s, %d)", (char) (newColumn + 'A'), (8 - newRow)));
@@ -85,6 +90,7 @@ public class Player<E extends TypePiece> {
 
         return false;
     }
+
 
     // Remove a piece from a specific position
     public boolean removePieceAtPosition(int column, int row) throws FinishGameExcepcion {
