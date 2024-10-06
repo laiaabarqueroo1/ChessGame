@@ -30,26 +30,39 @@ public class Player <E extends TypePiece> {
     }
 
     // Move a piece from one position to another
-    public  void movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
-        E piece = searchAtPosition(previousRow, previousColumn);
+    public void movePiece(int previousColumn, int previousRow, int newColumn, int newRow) {
+        E piece = searchAtPosition(previousRow, previousColumn); // Buscar la pieza en la posición anterior
 
         if (piece != null) {
-            MovablePiece movablePiece = (MovablePiece) piece;
+            MovablePiece movablePiece = (MovablePiece) piece;  // Cast a pieza movible (si se permite)
+
+            // Verificar si el movimiento es válido para la pieza
             if (movablePiece.isMoveValid(newRow, (char) newColumn)) {
                 try {
+                    // Actualizar la posición de la pieza internamente
                     piece.setPosicion(newRow, newColumn);
-                    System.out.println("Moved piece to (" + newColumn + ", " + newRow + ")");
+
+                    // Obtener el tablero actual
+                    char[][] board = Board.getBoard();
+
+                    // Mover la pieza en el tablero
+                    board[newRow][newColumn] = board[previousRow][previousColumn];  // Poner la pieza en la nueva posición
+                    board[previousRow][previousColumn] = ' ';  // Limpiar la posición anterior
+
+                    // Imprimir el movimiento
+                    System.out.println("Moved piece to (" + (char)(newColumn + 'A') + ", " + (8 - newRow) + ")");
+
                 } catch (RuntimeException e) {
                     System.out.println("Invalid position: " + e.getMessage());
                 }
             } else {
-                System.out.println("Invalid move for piece: " + piece.getTypes());
+                System.out.println("Invalid move for piece: " + piece.getTypes());  // Mostrar tipo de la pieza
             }
         } else {
-            System.out.println("No piece found at (" + previousColumn + ", " + previousRow + ")");
+            System.out.println("No piece found at (" + (char)(previousColumn + 'A') + ", " + (8 - previousRow) + ")");
         }
-
     }
+
 
     // Search for a piece at a given position
     public E searchAtPosition(int row, int column) {
