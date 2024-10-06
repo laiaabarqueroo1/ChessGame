@@ -63,10 +63,9 @@ public class Piece implements TypePiece {
             throw e;
         }
     }
-    // Método para validar movimientos
     public boolean isMoveValid(int newLine, char newColumn, boolean isWhiteTurn) {
         // Obtener la diferencia de filas y columnas
-        int lineDifference =  this.Line - newLine;
+        int lineDifference = this.Line - newLine;
         int columnDifference = this.Column - newColumn;
 
         // Verificar que la nueva columna es válida
@@ -74,33 +73,31 @@ public class Piece implements TypePiece {
             return false; // Columna inválida
         }
 
+        // Verificar si la pieza está intentando moverse a su propia casilla
+        if (newLine == this.Line && newColumn == this.Column) {
+            return false; // No se puede mover a la misma casilla
+        }
+
         switch (this.getTypes()) {
             case Pawn: // Peón
-                if (isWhiteTurn) { // Movimiento para pieza blanca
-                    if (columnDifference == 0) {
-                        // Movimiento hacia adelante
-                        if (lineDifference == 1) {
-                            return true; // Un movimiento hacia adelante
-                        }
-                        // Movimiento inicial: puede avanzar 2 casillas
-                        if (this.Line == 2 && lineDifference == 2) {
-                            return true; // Primer movimiento del peón
-                        }
-                    } else if (Math.abs(columnDifference) == 1 && lineDifference == 1) {
-                        return true; // Captura en diagonal
+                // Movimiento hacia adelante
+                if (columnDifference == 0) {
+                    if (isWhiteTurn) {
+                        // Movimiento blanco
+                        if (lineDifference == 1) return true; // Un movimiento hacia adelante
+                        if (this.Line == 2 && lineDifference == 2) return true; // Primer movimiento del peón
+                    } else {
+                        // Movimiento negro
+                        if (lineDifference == -1) return true; // Un movimiento hacia adelante
+                        if (this.Line == 7 && lineDifference == -2) return true; // Primer movimiento del peón
                     }
-                } else { // Movimiento para pieza negra
-                    if (columnDifference == 0) {
-                        // Movimiento hacia adelante
-                        if (lineDifference == -1) {
-                            return true; // Un movimiento hacia adelante
-                        }
-                        // Movimiento inicial: puede avanzar 2 casillas
-                        if (this.Line == 7 && lineDifference == -2) {
-                            return true; // Primer movimiento del peón
-                        }
-                    } else if (Math.abs(columnDifference) == 1 && lineDifference == -1) {
-                        return true; // Captura en diagonal
+                }
+                // Captura en diagonal
+                else if (Math.abs(columnDifference) == 1) {
+                    if (isWhiteTurn) {
+                        if (lineDifference == 1) return true; // Captura en diagonal (blanca)
+                    } else {
+                        if (lineDifference == -1) return true; // Captura en diagonal (negra)
                     }
                 }
                 break;
@@ -118,6 +115,7 @@ public class Piece implements TypePiece {
 
         return false; // Si no coincide con ninguna pieza
     }
+
 
 
 

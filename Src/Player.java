@@ -95,17 +95,22 @@ public class Player<E extends TypePiece> {
                 throw new FinishGameExcepcion();
             }
 
-            alivePieces.remove(piece);
-            deadPieces.add(piece);
-            printAlivePiecesCount();
-            printDeadPiecesCount();
+            // Remove the piece from the alive pieces and add to dead pieces
+            alivePieces.remove(piece); // Eliminar la pieza viva
+            deadPieces.add(piece);      // Añadir a las piezas muertas
+
+            // Actualizar conteos de piezas vivas y muertas
+            printAlivePiecesCount(); // Imprimir el conteo de piezas vivas
+            printDeadPiecesCount();  // Imprimir el conteo de piezas muertas
+
             printSuccess(String.format("Removed piece from (%d, %d)", column, row));
-            return true;
+            return true; // Retornar true si se eliminó correctamente
         } else {
             printError(String.format("No piece found at (%d, %d)", column, row));
-            return false;
+            return false; // Retornar false si no se encontró la pieza
         }
     }
+
 
     public E searchAtPosition(int row, int column) {
         printInfo(String.format("Searching for piece at row: %d, column: %d", row, column));
@@ -172,9 +177,9 @@ public class Player<E extends TypePiece> {
         System.out.println("=====================");
         System.out.println("Count: " + alivePieces.size());
         for (E piece : alivePieces) {
-            System.out.print(piece.getTypes() + " ");
+            System.out.print(piece.getTypes() + " " );
         }
-        System.out.println();
+        System.out.println("\n");
     }
 
     public void printDeadPiecesCount() {
@@ -182,8 +187,8 @@ public class Player<E extends TypePiece> {
         System.out.println("=====================");
         System.out.println("Count: " + deadPieces.size());
         for (E piece : deadPieces) {
-            System.out.print(piece.getTypes() + " ");
+            System.out.print(piece.getTypes() + " " );
         }
-        System.out.println();
+        System.out.println("\n");
     }
 }
