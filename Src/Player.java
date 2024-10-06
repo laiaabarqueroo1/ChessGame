@@ -34,7 +34,7 @@ public class Player<E extends TypePiece> {
 
         // Verificar si la conversión fue exitosa
         if (source == null || destination == null) {
-            printError("Invalid position format.");
+            System.out.println("Invalid position format.");
             return false;
         }
 
@@ -48,55 +48,30 @@ public class Player<E extends TypePiece> {
 
         // Verificar si se encontró una pieza
         if (piece != null) {
-            // Verificar si el movimiento es válido utilizando el método de la clase Piece
-            if (piece instanceof Piece) {
-                Piece actualPiece = (Piece) piece;
+            // Código para mover la pieza aquí...
+            char[][] board = Board.getBoard();
 
-                // Verificar que el movimiento es válido
-                if (actualPiece.isMoveValid(newRow, (char) (newColumn + 'A'), isWhiteTurn)) {
-                    char[][] board = Board.getBoard();
-
-                    // Verificar si la posición de destino está ocupada por una pieza
-                    char destinationPiece = board[newRow][newColumn];
-
-                    // Condición para comprobar si la pieza en destino es de un oponente
-                    if (destinationPiece != ' ' && Character.isLowerCase(destinationPiece) == Character.isLowerCase(actualPiece.getTypes())) {
-                        printError("You cannot move to a position occupied by your own piece.");
-                        return false; // No se puede mover a una posición ocupada por tu propia pieza
-                    }
-
-                    // Si la posición está ocupada por una pieza del oponente, quitarla
-                    if (destinationPiece != ' ' && Character.isLowerCase(destinationPiece) != Character.isLowerCase(actualPiece.getTypes())) {
-                        try {
-                            removePieceAtPosition(newColumn, newRow);
-                        } catch (FinishGameExcepcion e) {
-                            printError(e.getMessage());
-                            return false;
-                        }
-                    }
-
-                    // Mover la pieza
-                    if (!isWhiteTurn) { // Si no es el turno de blanco (es turno negro)
-                        board[newRow][newColumn] = Character.toLowerCase(actualPiece.getTypes()); // Forzar a minúsculas
-                    } else {
-                        board[newRow][newColumn] = actualPiece.getTypes(); // Mantener en mayúsculas
-                    }
-                    board[previousRow][previousColumn] = ' '; // Limpiar la posición anterior
-                    actualPiece.setPosicion(newRow, newColumn);
-
-                    printSuccess(String.format("Moved piece to (%s, %d)", (char) (newColumn + 'A'), (8 - newRow)));
-                    return true;
-                } else {
-                    printError(String.format("Invalid move for piece: %s", actualPiece.getTypes()));
-                }
-            } else {
-                printError("The piece is not an instance of Piece class.");
+            // Validar que la posición de destino no está ocupada por una pieza del mismo color
+            if (board[newRow][newColumn] != ' ' &&
+                    Character.isLowerCase(board[newRow][newColumn]) == Character.isLowerCase(piece.getTypes())) {
+                System.out.println("Invalid move: destination occupied by your own piece.");
+                return false;
             }
+
+            // Mover la pieza
+            board[newRow][newColumn] = piece.getTypes();
+            board[previousRow][previousColumn] = ' '; // Limpiar la posición anterior
+
+            // Actualizar la posición de la pieza
+            piece.setPosicion(newRow, newColumn); // Asegúrate de que el método setPosicion() actualiza tanto fila como columna
+
+            System.out.println("Moved piece to (" + (char) (newColumn + 'A') + ", " + (8 - newRow) + ")");
+            return true; // Retorna true si el movimiento fue exitoso
         } else {
-            printError("No piece found at specified position.");
+            System.out.println("No piece found at specified position.");
         }
 
-        return false;
+        return false; // Retorna false si no se pudo mover la pieza
     }
 
 
@@ -105,19 +80,18 @@ public class Player<E extends TypePiece> {
     public boolean removePieceAtPosition(int column, int row) throws FinishGameExcepcion {
         E piece = searchAtPosition(row, column);
         if (piece != null) {
-
-            // Comprovar si la peça és del mateix jugador
+            // Comprobar si la pieza es del mismo jugador
             if (!alivePieces.contains(piece)) {
-                System.out.println("You cannot remove your own piece at (" + column + ", " + row + ").");
-                return false; // No es pot eliminar una peça del mateix jugador
+                printError("You cannot remove your own piece at (" + column + ", " + row + ").");
+                return false; // No se puede eliminar una pieza del mismo jugador
             }
 
-            // Check if the piece is the king and call finishGame
+            // Verificar si la pieza es el rey y lanzar excepción si es necesario
             if (piece.finishGame()) {
                 throw new FinishGameExcepcion();
             }
 
-            // Remove the piece from the alive pieces and add to dead pieces
+            // Eliminar la pieza de las piezas vivas y agregarla a las piezas muertas
             alivePieces.remove(piece); // Eliminar la pieza viva
             deadPieces.add(piece);      // Añadir a las piezas muertas
 
@@ -132,6 +106,7 @@ public class Player<E extends TypePiece> {
             return false; // Retornar false si no se encontró la pieza
         }
     }
+
 
 
     public E searchAtPosition(int row, int column) {
